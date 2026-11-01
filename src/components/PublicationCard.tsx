@@ -1,8 +1,8 @@
-import type { Publication } from '@/content/site'
+import Link from 'next/link'
+import type { Publication } from '@/content/publications'
+import { formatDate } from '@/content/format'
 import { CoverArt } from './Art'
 import { ArrowRight } from './Icons'
-
-const dateFormat = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
 
 export function PublicationCard({ publication, index }: { publication: Publication; index: number }) {
   return (
@@ -12,12 +12,12 @@ export function PublicationCard({ publication, index }: { publication: Publicati
         <span className="tag">{publication.category}</span>
       </div>
       <div className="post__body">
-        <time dateTime={publication.date}>{dateFormat.format(new Date(publication.date))}</time>
+        <time dateTime={publication.date}>{formatDate(publication.date)}</time>
         <h3 className="h3">{publication.title}</h3>
         <p>{publication.excerpt}</p>
-        <a className="link-arrow" href={publication.url}>
+        <Link className="link-arrow" href={`/publications/${publication.slug}`}>
           Lire l’article <ArrowRight />
-        </a>
+        </Link>
       </div>
     </article>
   )

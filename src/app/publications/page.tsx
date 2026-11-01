@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/PageHero'
 import { PublicationCard } from '@/components/PublicationCard'
-import { publications } from '@/content/site'
+import { publications } from '@/content/publications'
 
 export const metadata: Metadata = {
   title: 'Nos publications',

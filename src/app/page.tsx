@@ -3,7 +3,8 @@ import { HeroArt, FeatureArt } from '@/components/Art'
 import { Carousel } from '@/components/Carousel'
 import { ArrowRight, Pin, ServiceIcon } from '@/components/Icons'
 import { PublicationCard } from '@/components/PublicationCard'
-import { company, expertises, jobOffers, publications, services } from '@/content/site'
+import { publications } from '@/content/publications'
+import { company, expertises, jobOffers, services } from '@/content/site'
 
 const serviceIconNames = ['risk', 'efficiency', 'strategy'] as const
 

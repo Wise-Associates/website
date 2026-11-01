@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import { publications } from './src/content/publications'
 
 // Le site est entièrement statique : pas de script tiers, pas d'iframe, pas de formulaire.
 // La CSP est donc stricte ; l'élargir seulement si un service externe est ajouté.
@@ -42,6 +43,18 @@ const nextConfig: NextConfig = {
       { source: '/offres-demploie', destination: '/recrutement', permanent: true },
       { source: '/candidature-spontanee', destination: '/recrutement#candidature', permanent: true },
       { source: '/politique-de-confidentialite', destination: '/mentions-legales#confidentialite', permanent: true },
+      ...publications.map((publication) => ({
+        source: publication.legacyPath,
+        destination: `/publications/${publication.slug}`,
+        permanent: true,
+      })),
+      // Une seule adresse canonique : www.wise-associates.fr renvoie vers wise-associates.fr.
+      {
+        source: '/:path*',
+        has: [{ type: 'host' as const, value: 'www.wise-associates.fr' }],
+        destination: 'https://wise-associates.fr/:path*',
+        permanent: true,
+      },
     ]
   },
 }
