@@ -36,6 +36,8 @@ Projet Vercel `wise-associates/website`, relié à ce dépôt GitHub :
 - chaque push sur `pre-dev` (ou toute autre branche) crée une preview ;
 - `main` est la production, mise à jour uniquement par pull request validée par un humain.
 
+Le préréglage Next.js est imposé par `vercel.json` (le projet Vercel a été créé sur un dépôt vide et n'a pas pu le détecter).
+
 Variable d'environnement : voir `.env.example`.
 
 ## Points restant à traiter
