@@ -40,8 +40,16 @@ Le préréglage Next.js est imposé par `vercel.json` (le projet Vercel a été 
 
 Variable d'environnement : voir `.env.example`.
 
+## Bascule du domaine wise-associates.fr
+
+Les anciennes URL WordPress (pages et articles) sont redirigées en 301/308 dans `next.config.ts`, et `www.wise-associates.fr` renvoie vers `wise-associates.fr`. Pour mettre le nouveau site en ligne sur le domaine :
+
+1. Dans Vercel (projet `wise-associates/website`, Settings > Domains), ajouter `wise-associates.fr` et `www.wise-associates.fr`.
+2. Chez le registraire du domaine (IONOS aujourd'hui), créer les enregistrements DNS indiqués par Vercel pour chacun des deux domaines (un enregistrement A pour la racine, un CNAME pour `www`), en remplacement de ceux qui pointent vers l'hébergement WordPress.
+3. Ne pas toucher aux enregistrements MX : la messagerie `contact@wise-associates.fr` doit continuer de fonctionner.
+4. Vérifier ensuite quelques anciennes adresses (par exemple `/risks-finance`, `/offres-demploi`, `/risque-de-liquidite-nsfr-2021`).
+
 ## Points restant à traiter
 
 - Remplacer le monogramme provisoire (`src/components/Logo.tsx`, `src/app/icon.svg`) par le logo officiel.
-- Migrer le texte complet des quatre publications : les cartes renvoient encore vers les articles de l'ancien site.
 - Confirmer l'hébergeur indiqué dans les mentions légales au moment de la bascule du domaine.

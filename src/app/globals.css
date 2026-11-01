@@ -1017,3 +1017,45 @@ ol {
 .footer__bottom a:hover {
   text-decoration: underline;
 }
+
+/* ---------- Article ---------- */
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  color: var(--text-on-dark-muted);
+  font-size: 0.95rem;
+}
+.article {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 760px;
+  margin-inline: auto;
+  font-size: 1.0625rem;
+  color: var(--text-muted);
+}
+.article h2 {
+  margin-top: var(--space-5);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+  color: var(--text);
+}
+.article ul {
+  display: grid;
+  gap: var(--space-3);
+  padding-left: var(--space-5);
+}
+.article li::marker {
+  color: var(--accent);
+}
+.article__lead {
+  font-size: clamp(1.15rem, 1.8vw, 1.3rem);
+  color: var(--text);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--line);
+}
+.article__source {
+  font-size: 0.95rem;
+}

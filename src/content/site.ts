@@ -172,55 +172,6 @@ export const services = [
   },
 ] as const
 
-export type Publication = {
-  slug: string
-  title: string
-  date: string
-  category: string
-  excerpt: string
-  // Article complet encore hébergé sur l'ancien site, en attendant sa migration.
-  url: string
-}
-
-export const publications: Publication[] = [
-  {
-    slug: 'crr2-focus-risque-de-contrepartie-sa-ccr',
-    title: 'CRR2 : focus sur le risque de contrepartie SA-CCR',
-    date: '2021-09-26',
-    category: 'Réglementaire',
-    excerpt:
-      'La réforme CRR2 et son volet consacré au risque de contrepartie : pourquoi la méthode SA-CCR remplace les approches CEM et SM, et quelles évolutions de reporting l’accompagnent.',
-    url: 'https://wise-associates.fr/crr2-focus-risque-de-contrepartie-sa-ssr',
-  },
-  {
-    slug: 'risque-de-liquidite-nsfr-2021',
-    title: 'Risque de liquidité : NSFR 2021',
-    date: '2021-09-26',
-    category: 'Liquidité',
-    excerpt:
-      'Devenu contraignant en juin 2021, le NSFR exige un financement stable sur un an. Comment la CRR2 a assoupli la version bâloise et introduit un NSFR simplifié.',
-    url: 'https://wise-associates.fr/risque-de-liquidite-nsfr-2021',
-  },
-  {
-    slug: 'recherche-economique-changement-climatique',
-    title: 'La mobilisation de la recherche économique contre le changement climatique',
-    date: '2021-09-26',
-    category: 'Finance durable',
-    excerpt:
-      'Le rôle de la recherche d’excellence dans la transition bas-carbone, à travers les travaux de l’Institut Louis Bachelier et son programme Green and Sustainable Finance.',
-    url: 'https://wise-associates.fr/la-mobilisation-de-la-recherche-economique-contre-le-changement-climatique',
-  },
-  {
-    slug: 'enjeux-nouvelles-technologies-finance',
-    title: 'Les enjeux des nouvelles technologies en finance',
-    date: '2021-09-25',
-    category: 'Innovation',
-    excerpt:
-      'L’intelligence artificielle en finance : gestion des risques, robots-conseillers et biais des algorithmes, d’après les Cahiers Louis Bachelier.',
-    url: 'https://wise-associates.fr/les-enjeux-des-nouvelles-technologies-en-finance',
-  },
-]
-
 // Intitulés repris de l'ancienne page « Offres d'emploi », sans les doublons ni les entrées de test.
 export const jobOffers = [
   'Consultant expert en innovation, Data Science & IA',
