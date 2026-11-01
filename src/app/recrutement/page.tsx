@@ -1,12 +1,10 @@
 import type { Metadata } from 'next'
 import { ArrowRight } from '@/components/Icons'
 import { PageHero } from '@/components/PageHero'
-import { company, jobOffers } from '@/content/site'
+import { company, jobOffers, seo } from '@/content/site'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Nous rejoindre',
-  description: 'Offres d’emploi et candidature spontanée chez Wise Associates.',
-}
+export const metadata: Metadata = pageMetadata({ ...seo.recrutement, path: '/recrutement' })
 
 const applyHref = (subject: string) => `mailto:${company.email}?subject=${encodeURIComponent(subject)}`
 
@@ -16,6 +14,7 @@ export default function RecrutementPage() {
       <PageHero
         eyebrow="Nous rejoindre"
         title="Rejoignez Wise Associates"
+        path="/recrutement"
         lead="Nous recrutons des profils issus de grandes universités, d’écoles de commerce et d’ingénieurs : des consultants analytiques qui partagent nos valeurs et s’intéressent au conseil et à nos secteurs d’intervention."
       />
       <section className="section">

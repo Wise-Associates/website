@@ -1,40 +1,33 @@
 // Illustrations vectorielles dessinées pour le site : aucune photo, vidéo ni image de tiers.
 
+// Fond du hero. Les halos et l'emblème tournant sont des calques HTML animés en CSS
+// (transform), donc pris en charge par le GPU : animer des éléments à l'intérieur d'un SVG
+// forcerait le navigateur à tout recalculer et repeindre à chaque image, ce qui ralentit
+// l'affichage sur mobile.
 export function HeroArt() {
   return (
-    <svg className="hero__bg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <defs>
-        <radialGradient id="hero-orb-1">
-          <stop offset="0" stopColor="var(--art-green)" stopOpacity="0.9" />
-          <stop offset="1" stopColor="var(--art-green)" stopOpacity="0" />
-        </radialGradient>
-        <radialGradient id="hero-orb-2">
-          <stop offset="0" stopColor="var(--art-slate)" stopOpacity="0.85" />
-          <stop offset="1" stopColor="var(--art-slate)" stopOpacity="0" />
-        </radialGradient>
-        <radialGradient id="hero-orb-3">
-          <stop offset="0" stopColor="var(--accent)" stopOpacity="0.35" />
-          <stop offset="1" stopColor="var(--accent)" stopOpacity="0" />
-        </radialGradient>
-        <linearGradient id="hero-facet" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="var(--paper)" stopOpacity="0.28" />
-          <stop offset="1" stopColor="var(--paper)" stopOpacity="0.02" />
-        </linearGradient>
-      </defs>
-      <rect width="1440" height="900" fill="var(--black)" />
-      <circle className="orb" cx="1050" cy="300" r="520" fill="url(#hero-orb-1)" />
-      <circle className="orb orb--2" cx="300" cy="760" r="560" fill="url(#hero-orb-2)" />
-      <circle className="orb orb--3" cx="980" cy="560" r="300" fill="url(#hero-orb-3)" />
-      <g className="facet" fill="url(#hero-facet)" stroke="var(--paper)" strokeOpacity="0.22">
-        <polygon points="1040,160 1250,420 1040,680 830,420" />
-        <polygon points="1040,240 1180,420 1040,600 900,420" fill="none" />
-        <polygon points="1040,160 1040,680 1250,420" fillOpacity="0.4" />
-      </g>
-      <g fill="none" stroke="var(--accent)" strokeOpacity="0.35">
-        <circle cx="1040" cy="420" r="330" />
-        <circle cx="1040" cy="420" r="410" strokeDasharray="2 12" />
-      </g>
-    </svg>
+    <div className="hero__bg" aria-hidden="true">
+      <span className="orb orb--1" />
+      <span className="orb orb--2" />
+      <span className="orb orb--3" />
+      <svg className="facet" viewBox="0 0 840 840">
+        <defs>
+          <linearGradient id="hero-facet" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="var(--paper)" stopOpacity="0.28" />
+            <stop offset="1" stopColor="var(--paper)" stopOpacity="0.02" />
+          </linearGradient>
+        </defs>
+        <g fill="none" stroke="var(--accent)" strokeOpacity="0.35">
+          <circle cx="420" cy="420" r="330" />
+          <circle cx="420" cy="420" r="410" strokeDasharray="2 12" />
+        </g>
+        <g fill="url(#hero-facet)" stroke="var(--paper)" strokeOpacity="0.22">
+          <polygon points="420,160 630,420 420,680 210,420" />
+          <polygon points="420,240 560,420 420,600 280,420" fill="none" />
+          <polygon points="420,160 420,680 630,420" fillOpacity="0.4" />
+        </g>
+      </svg>
+    </div>
   )
 }
 

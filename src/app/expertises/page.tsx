@@ -2,12 +2,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight } from '@/components/Icons'
 import { PageHero } from '@/components/PageHero'
-import { expertises, services } from '@/content/site'
+import { expertises, seo, services } from '@/content/site'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Nos expertises',
-  description: 'Risks & Finance, Compliance, Data Management et Digital Transformation : les expertises de Wise Associates.',
-}
+export const metadata: Metadata = pageMetadata({ ...seo.expertises, path: '/expertises' })
 
 export default function ExpertisesPage() {
   return (
@@ -15,6 +13,7 @@ export default function ExpertisesPage() {
       <PageHero
         eyebrow="Nos expertises"
         title="Nos expertises"
+        path="/expertises"
         lead="Nos consultants interviennent au cœur des transformations des banques et des institutions financières, du cadrage réglementaire jusqu’au déploiement d’outils innovants."
       />
       <section className="section">

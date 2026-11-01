@@ -545,7 +545,6 @@ ol {
   padding: var(--space-6);
   background: var(--glass-strong);
   border-radius: var(--radius);
-  backdrop-filter: blur(6px);
 }
 .hero__panel h1 {
   font-size: clamp(1.75rem, 3vw, 2rem);
@@ -561,16 +560,39 @@ ol {
   justify-self: start;
 }
 
-/* Fond animé du hero : halos qui dérivent lentement. */
+/* Fond animé du hero : halos qui dérivent et emblème qui tourne lentement.
+   Uniquement des animations de transform sur des calques HTML, pour rester sur le GPU. */
 .orb {
-  transform-origin: center;
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
   animation: drift 22s ease-in-out infinite alternate;
 }
+.orb--1 {
+  top: -30%;
+  left: 37%;
+  width: 72vmax;
+  aspect-ratio: 1;
+  background: radial-gradient(closest-side, var(--art-green), transparent);
+  opacity: 0.9;
+}
 .orb--2 {
+  top: 22%;
+  left: -18%;
+  width: 78vmax;
+  aspect-ratio: 1;
+  background: radial-gradient(closest-side, var(--art-slate), transparent);
+  opacity: 0.85;
   animation-duration: 28s;
   animation-direction: alternate-reverse;
 }
 .orb--3 {
+  top: 28%;
+  left: 47%;
+  width: 42vmax;
+  aspect-ratio: 1;
+  background: radial-gradient(closest-side, var(--accent), transparent);
+  opacity: 0.35;
   animation-duration: 34s;
 }
 @keyframes drift {
@@ -582,8 +604,22 @@ ol {
   }
 }
 .facet {
+  position: absolute;
+  top: 47%;
+  left: 72%;
+  width: min(840px, 92vmin);
+  height: auto;
+  translate: -50% -50%;
+  will-change: transform;
   animation: turn 60s linear infinite;
-  transform-origin: 1040px 420px;
+}
+@media (max-width: 700px) {
+  /* Sur mobile, le panneau occupe la largeur : l'emblème passe sous le texte. */
+  .facet {
+    top: 88%;
+    left: 76%;
+    width: 110vmin;
+  }
 }
 @keyframes turn {
   to {

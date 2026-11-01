@@ -9,8 +9,10 @@ export const company = {
   phoneHref: '+33184207958',
   address: {
     street: '66 avenue des Champs-Élysées',
-    city: '75008 Paris',
+    postalCode: '75008',
+    locality: 'Paris',
     country: 'France',
+    countryCode: 'FR',
   },
   // Lien simple vers la carte : pas d'iframe Google Maps, pour éviter les cookies tiers.
   mapUrl: 'https://www.openstreetmap.org/search?query=66%20avenue%20des%20Champs-%C3%89lys%C3%A9es%2C%2075008%20Paris',
@@ -260,5 +262,55 @@ export const home = {
     title: 'L’expertise au service de vos décisions',
     text: 'Allier connaissance des métiers, maîtrise de la réglementation et innovation pour sécuriser vos transformations.',
     cta: 'Nous trouver',
+  },
+} as const
+
+// Titres et descriptions pour les moteurs de recherche et les aperçus de partage.
+// Repères : titre de 60 caractères au plus (le suffixe « | Wise Associates » est ajouté
+// automatiquement sauf sur l'accueil), description entre 120 et 160 caractères.
+export const seo = {
+  home: {
+    title: 'Wise Associates, conseil en services financiers à Paris',
+    description:
+      'Cabinet de conseil en management à Paris pour les banques et les assureurs : risques, réglementation, conformité, data management et transformation digitale.',
+  },
+  expertises: {
+    title: 'Nos expertises en conseil financier',
+    description:
+      'Risks & Finance, Compliance, Data Management et Digital Transformation : comment Wise Associates accompagne les banques et les institutions financières.',
+  },
+  expertiseSuffix: 'pour la banque et l’assurance',
+  publications: {
+    title: 'Publications et analyses réglementaires',
+    description:
+      'CRR2, NSFR, finance durable, innovation : les décryptages réglementaires et analyses des consultants Wise Associates pour le secteur financier.',
+  },
+  recrutement: {
+    title: 'Recrutement : consultants en finance à Paris',
+    description:
+      'Risque de crédit, ALM, Data Science, Business Analyst : consultez nos offres d’emploi à Paris ou envoyez votre candidature spontanée à Wise Associates.',
+  },
+  aPropos: {
+    title: 'À propos du cabinet',
+    description:
+      'Wise Associates, cabinet de conseil en management basé à Paris, accompagne les banques et institutions financières en France et en Middle East Africa.',
+  },
+  contact: {
+    title: 'Contacter le cabinet',
+    description:
+      'Contactez Wise Associates au 01 84 20 79 58 ou par e-mail. Nos bureaux vous accueillent au 66 avenue des Champs-Élysées, 75008 Paris.',
+  },
+  mentionsLegales: {
+    title: 'Mentions légales et confidentialité',
+    description:
+      'Éditeur, hébergeur et politique de données personnelles du site wise-associates.fr : ni formulaire, ni mesure d’audience, ni cookie publicitaire.',
+  },
+  // Images de partage (Open Graph) générées au build : bandeau au-dessus du titre et texte alternatif.
+  og: {
+    homeEyebrow: 'Cabinet de conseil en management',
+    homeAlt: 'Wise Associates, cabinet de conseil en management dédié aux services financiers',
+    expertiseEyebrow: 'Expertise',
+    expertiseAlt: 'Une expertise de Wise Associates',
+    articleAlt: 'Une publication de Wise Associates',
   },
 } as const

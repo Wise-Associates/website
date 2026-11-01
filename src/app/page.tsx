@@ -1,15 +1,23 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CoverArt, HeroArt, IntroArt, OrbitArt, ServiceEmblem } from '@/components/Art'
 import { ArrowRight } from '@/components/Icons'
+import { JsonLd } from '@/components/JsonLd'
 import { formatDate } from '@/content/format'
 import { publications } from '@/content/publications'
-import { company, home } from '@/content/site'
+import { company, home, seo } from '@/content/site'
+import { pageMetadata } from '@/lib/seo'
+import { organizationLd, websiteLd } from '@/lib/structured-data'
+
+export const metadata: Metadata = pageMetadata({ ...seo.home, path: '/', absoluteTitle: true, ownShareImage: true })
 
 export default function HomePage() {
   const [first, second, third] = publications
 
   return (
     <>
+      <JsonLd data={organizationLd()} />
+      <JsonLd data={websiteLd()} />
       <section className="hero">
         <HeroArt />
         <div className="container">

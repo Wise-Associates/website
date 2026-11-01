@@ -5,6 +5,9 @@ import { ArrowLeft, ArrowRight } from '@/components/Icons'
 import { PageHero } from '@/components/PageHero'
 import { publications } from '@/content/publications'
 import { formatDate } from '@/content/format'
+import { JsonLd } from '@/components/JsonLd'
+import { pageMetadata } from '@/lib/seo'
+import { articleLd } from '@/lib/structured-data'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -18,11 +21,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const publication = publications.find((item) => item.slug === slug)
   if (!publication) return {}
-  return {
+  return pageMetadata({
     title: publication.title,
     description: publication.excerpt,
-    openGraph: { type: 'article', publishedTime: publication.date },
-  }
+    path: `/publications/${publication.slug}`,
+    article: { publishedTime: publication.date, section: publication.category },
+    ownShareImage: true,
+  })
 }
 
 export default async function PublicationPage({ params }: Props) {
@@ -34,9 +39,11 @@ export default async function PublicationPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={articleLd(publication)} />
       <PageHero
         eyebrow={publication.category}
         title={publication.title}
+        path={`/publications/${publication.slug}`}
         crumbs={[{ href: '/publications', label: 'Nos publications' }]}
       >
         <p className="article-meta">

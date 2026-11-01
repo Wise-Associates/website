@@ -60,7 +60,7 @@ export function Footer() {
               </h3>
               <ul className="footer__links">
                 <li>
-                  {company.address.street}, {company.address.city}
+                  {company.address.street}, {company.address.postalCode} {company.address.locality}
                 </li>
                 <li>
                   <a href={`tel:${company.phoneHref}`}>{company.phone}</a>

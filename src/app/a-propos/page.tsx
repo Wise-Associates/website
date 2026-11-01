@@ -3,12 +3,10 @@ import Link from 'next/link'
 import { FeatureArt } from '@/components/Art'
 import { ArrowRight } from '@/components/Icons'
 import { PageHero } from '@/components/PageHero'
-import { company, services } from '@/content/site'
+import { company, seo, services } from '@/content/site'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'À propos',
-  description: 'Wise Associates, cabinet de conseil en management parisien dédié aux services financiers.',
-}
+export const metadata: Metadata = pageMetadata({ ...seo.aPropos, path: '/a-propos' })
 
 export default function AboutPage() {
   return (
@@ -16,6 +14,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="Wise Associates en bref"
         title="À propos"
+        path="/a-propos"
         lead="Un cabinet de conseil en management basé à Paris, qui intervient exclusivement dans les services financiers."
       />
       <section className="section">

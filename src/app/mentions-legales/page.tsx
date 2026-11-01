@@ -1,16 +1,15 @@
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/PageHero'
-import { company } from '@/content/site'
+import { company, seo } from '@/content/site'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Mentions légales et confidentialité',
-  robots: { index: true, follow: true },
-}
+// Page utile mais sans intérêt dans les résultats de recherche : non indexée, liens suivis.
+export const metadata: Metadata = pageMetadata({ ...seo.mentionsLegales, path: '/mentions-legales', noindex: true })
 
 export default function LegalPage() {
   return (
     <>
-      <PageHero eyebrow="Informations légales" title="Mentions légales" />
+      <PageHero eyebrow="Informations légales" title="Mentions légales" path="/mentions-legales" />
       <section className="section">
         <div className="container legal">
           <section>
@@ -22,7 +21,7 @@ export default function LegalPage() {
               <dd>RCS Paris B 798 256 509, SIRET 798 256 509 00026</dd>
               <dt>Siège social</dt>
               <dd>
-                {company.address.street}, {company.address.city}
+                {company.address.street}, {company.address.postalCode} {company.address.locality}
               </dd>
               <dt>Contact</dt>
               <dd>

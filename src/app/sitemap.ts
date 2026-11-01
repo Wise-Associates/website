@@ -1,20 +1,25 @@
 import type { MetadataRoute } from 'next'
 import { publications } from '@/content/publications'
 import { expertises } from '@/content/site'
+import { absoluteUrl } from '@/lib/seo'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://wise-associates.fr'
-
+// Pages indexables uniquement : les mentions légales (noindex) n'y figurent pas.
+// La date de modification n'est donnée que lorsqu'elle est connue avec certitude (articles).
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = [
-    '',
+  const pages = [
+    '/',
     '/expertises',
     ...expertises.map((expertise) => `/expertises/${expertise.slug}`),
     '/publications',
-    ...publications.map((publication) => `/publications/${publication.slug}`),
     '/recrutement',
     '/a-propos',
     '/contact',
-    '/mentions-legales',
-  ]
-  return paths.map((path) => ({ url: `${siteUrl}${path}` }))
+  ].map((path) => ({ url: absoluteUrl(path) }))
+
+  const articles = publications.map((publication) => ({
+    url: absoluteUrl(`/publications/${publication.slug}`),
+    lastModified: publication.date,
+  }))
+
+  return [...pages, ...articles]
 }

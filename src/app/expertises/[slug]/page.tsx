@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowRight } from '@/components/Icons'
 import { PageHero } from '@/components/PageHero'
-import { expertises } from '@/content/site'
+import { expertises, seo } from '@/content/site'
+import { pageMetadata } from '@/lib/seo'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -16,7 +17,13 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const expertise = expertises.find((item) => item.slug === slug)
-  return expertise ? { title: expertise.title, description: expertise.short } : {}
+  if (!expertise) return {}
+  return pageMetadata({
+    title: `${expertise.title} ${seo.expertiseSuffix}`,
+    description: expertise.short,
+    path: `/expertises/${expertise.slug}`,
+    ownShareImage: true,
+  })
 }
 
 export default async function ExpertisePage({ params }: Props) {
@@ -31,6 +38,7 @@ export default async function ExpertisePage({ params }: Props) {
       <PageHero
         eyebrow="Expertise"
         title={expertise.title}
+        path={`/expertises/${expertise.slug}`}
         lead={expertise.short}
         crumbs={[{ href: '/expertises', label: 'Nos expertises' }]}
       />

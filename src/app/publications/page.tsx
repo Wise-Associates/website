@@ -2,11 +2,10 @@ import type { Metadata } from 'next'
 import { PageHero } from '@/components/PageHero'
 import { PublicationCard } from '@/components/PublicationCard'
 import { publications } from '@/content/publications'
+import { seo } from '@/content/site'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Nos publications',
-  description: 'Analyses réglementaires et décryptages des consultants Wise Associates.',
-}
+export const metadata: Metadata = pageMetadata({ ...seo.publications, path: '/publications' })
 
 export default function PublicationsPage() {
   return (
@@ -14,6 +13,7 @@ export default function PublicationsPage() {
       <PageHero
         eyebrow="Nos publications"
         title="Nos publications"
+        path="/publications"
         lead="Décryptages réglementaires, analyses de marché et regards sur l’innovation en finance, par nos consultants."
       />
       <section className="section">
