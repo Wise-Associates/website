@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
-import '@fontsource-variable/inter'
-import '@fontsource-variable/fraunces'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/space-grotesk/400.css'
+import '@fontsource/space-grotesk/500.css'
+import '@fontsource/space-grotesk/600.css'
 import './globals.css'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
@@ -19,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: { type: 'website', locale: 'fr_FR', siteName: 'Wise Associates' },
 }
 
-export const viewport: Viewport = { themeColor: '#0b1626' }
+export const viewport: Viewport = { themeColor: '#13211a' }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

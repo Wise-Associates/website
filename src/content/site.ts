@@ -190,3 +190,75 @@ export const navigation = [
   { href: '/recrutement', label: 'Nous rejoindre' },
   { href: '/a-propos', label: 'À propos' },
 ] as const
+
+// Textes de la page d'accueil.
+export const home = {
+  hero: {
+    title: 'L’expertise métier au service de la finance',
+    text: 'Wise Associates combine la connaissance des métiers bancaires, la maîtrise détaillée de la réglementation et l’innovation technologique pour accompagner vos transformations.',
+    cta: 'Parlons de vos enjeux',
+  },
+  intro: {
+    title: 'Wise Associates, l’alternative aux grandes maisons',
+    paragraphs: [
+      'Cabinet de conseil en management basé à Paris, Wise Associates accompagne les banques et les institutions financières dans leurs projets de transformation, sur l’ensemble des domaines de la finance.',
+      'La gestion des risques et la mise en œuvre des exigences réglementaires sont notre cœur de métier historique. Nous y apportons une expertise pointue en ingénierie financière et intervenons sur des missions à forte valeur ajoutée, en France comme dans la région Middle East Africa.',
+    ],
+    cta: 'Wise Associates en bref',
+  },
+  services: [
+    {
+      key: 'risk',
+      label: 'Risque & Réglementaire',
+      title: 'Transformer la contrainte réglementaire en avantage',
+      paragraphs: [
+        'Déployer une nouvelle réglementation, en mesurer les impacts et optimiser la fonction risque : nous interprétons les exigences, revoyons vos processus et conduisons le changement.',
+        'Bâle III et CRR2, IFRS 9, FRTB, BCBS 239, LCB-FT : nos consultants connaissent les textes autant que les systèmes qui les mettent en œuvre.',
+      ],
+      href: '/expertises/risks-finance',
+    },
+    {
+      key: 'efficiency',
+      label: 'Efficacité opérationnelle',
+      title: 'Des organisations plus simples et plus performantes',
+      paragraphs: [
+        'Évolution des modèles opératoires, amélioration du coefficient d’exploitation, refonte de la distribution : nous aidons vos équipes à gagner en efficacité sans perdre en maîtrise des risques.',
+        'Data management, automatisation et outils de pilotage viennent soutenir chaque transformation.',
+      ],
+      href: '/expertises/data-management',
+    },
+    {
+      key: 'strategy',
+      label: 'Stratégie & Transaction',
+      title: 'Éclairer les grandes décisions',
+      paragraphs: [
+        'Rapprochements et intégrations, diagnostics stratégiques, études de marché, identification de cibles, optimisation financière et due diligence.',
+        'Nous accompagnons les directions générales et financières à chaque étape de leurs opérations structurantes.',
+      ],
+      href: '/expertises',
+    },
+  ],
+  news: {
+    title: 'Nos dernières publications',
+    text: 'Décryptages réglementaires, analyses et notes de lecture : nos consultants partagent leur regard sur les évolutions du secteur financier.',
+    digestTitle: 'Votre veille réglementaire',
+    digestText: 'CRR2, NSFR, finance durable, intelligence artificielle : retrouvez nos analyses pour anticiper les évolutions qui touchent votre établissement.',
+    cta: 'Toutes nos publications',
+  },
+  careers: {
+    title: 'Envie de rejoindre une équipe d’experts ?',
+    text: 'Nous recrutons des profils issus de grandes universités, d’écoles de commerce et d’ingénieurs, dans un environnement qui encourage le partage des compétences et le travail en équipe.',
+    cta: 'Rejoignez notre équipe',
+    secondary: 'Candidature spontanée',
+    orbit: ['Risque de crédit', 'ALM', 'Data Science & IA', 'Conformité', 'Chef de projet', 'Business Analyst'],
+  },
+  practices: {
+    title: 'Exclusivement les services financiers.',
+    text: 'Des pratiques dédiées à chaque métier, pour parler le langage de vos équipes dès le premier jour.',
+  },
+  footer: {
+    title: 'L’expertise au service de vos décisions',
+    text: 'Allier connaissance des métiers, maîtrise de la réglementation et innovation pour sécuriser vos transformations.',
+    cta: 'Nous trouver',
+  },
+} as const

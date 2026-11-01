@@ -42,7 +42,7 @@ export default function RecrutementPage() {
       <section id="candidature" className="section">
         <div className="container">
           <div className="cta-band">
-            <p className="eyebrow" style={{ color: '#fff' }}>
+            <p className="eyebrow">
               Candidature spontanée
             </p>
             <h2 className="h2">Aucune offre ne correspond à votre profil ?</h2>

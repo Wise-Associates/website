@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import { HeroArt } from './Art'
 
 type Crumb = { href: string; label: string }
 
@@ -19,7 +18,6 @@ export function PageHero({
 }) {
   return (
     <section className="page-hero">
-      <HeroArt />
       <div className="container">
         <nav aria-label="Fil d’Ariane">
           <ol className="breadcrumb">

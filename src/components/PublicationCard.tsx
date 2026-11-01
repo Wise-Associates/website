@@ -7,17 +7,15 @@ import { ArrowRight } from './Icons'
 export function PublicationCard({ publication, index }: { publication: Publication; index: number }) {
   return (
     <article className="post">
+      <time dateTime={publication.date}>{formatDate(publication.date)}</time>
+      <h3>{publication.title}</h3>
+      <p>{publication.excerpt}</p>
+      <Link className="link-arrow" href={`/publications/${publication.slug}`}>
+        Lire l’article <ArrowRight />
+      </Link>
       <div className="post__cover">
         <CoverArt variant={index} />
         <span className="tag">{publication.category}</span>
-      </div>
-      <div className="post__body">
-        <time dateTime={publication.date}>{formatDate(publication.date)}</time>
-        <h3 className="h3">{publication.title}</h3>
-        <p>{publication.excerpt}</p>
-        <Link className="link-arrow" href={`/publications/${publication.slug}`}>
-          Lire l’article <ArrowRight />
-        </Link>
       </div>
     </article>
   )
