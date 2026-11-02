@@ -36,42 +36,66 @@ type RingSegment = { key: 'risk' | 'efficiency' | 'strategy'; label: string }
 
 // « L'anneau Wise » : le cercle du logo, partagé en trois arcs qui sont les trois offres du
 // cabinet. Chaque arc reprend la couleur du panneau de l'offre plus bas dans la page.
-// Les arcs se tracent une seule fois au chargement ; l'image reste ensuite immobile.
+// Les arcs se tracent au chargement, puis l'anneau tourne lentement autour du logo, qui reste fixe.
+// La rotation porte sur un élément HTML (transform, pris en charge par le GPU) et non sur
+// l'intérieur du SVG, qui forcerait le navigateur à tout repeindre à chaque image.
 export function HeroRing({ segments }: { segments: readonly RingSegment[] }) {
   const span = 360 / segments.length
   const gap = 12
   return (
-    <svg className="ring" viewBox="0 0 640 640" aria-hidden="true">
-      <circle className="ring__inner" cx={ringCenter} cy={ringCenter} r="196" />
-      <g className="ring__ticks">
-        {Array.from({ length: 72 }, (_, index) => {
-          const angle = index * 5
-          const major = index % 6 === 0
-          const [x1, y1] = polar(major ? 206 : 212, angle)
-          const [x2, y2] = polar(222, angle)
-          return <line key={angle} x1={x1} y1={y1} x2={x2} y2={y2} className={major ? 'ring__tick--major' : undefined} />
-        })}
-      </g>
-      {segments.map((segment, index) => {
-        const from = -90 + index * span + gap / 2
-        const to = from + span - gap
-        const middle = (from + to) / 2
-        // Dans la moitié basse, le texte suit l'arc à l'envers pour rester à l'endroit.
-        const lower = middle > 0 && middle < 180
-        return (
-          <g key={segment.key} className={`ring__segment ring__segment--${segment.key}`} style={{ '--i': index } as CSSProperties}>
-            <path className="ring__arc" d={arc(262, from, to)} pathLength={1} />
-            <path id={`ring-label-${segment.key}`} d={arc(lower ? 296 : 284, from, to, lower)} fill="none" />
-            <text className="ring__label">
-              <textPath href={`#ring-label-${segment.key}`} startOffset="50%" textAnchor="middle">
-                {segment.label}
-              </textPath>
-            </text>
+    <div className="ring" aria-hidden="true">
+      <div className="ring__turn">
+        <svg viewBox="0 0 640 640">
+          <g className="ring__ticks">
+            {Array.from({ length: 72 }, (_, index) => {
+              const angle = index * 5
+              const major = index % 6 === 0
+              const [x1, y1] = polar(major ? 206 : 212, angle)
+              const [x2, y2] = polar(222, angle)
+              return <line key={angle} x1={x1} y1={y1} x2={x2} y2={y2} className={major ? 'ring__tick--major' : undefined} />
+            })}
           </g>
-        )
-      })}
-      <image className="ring__logo" href="/wise-logo.png" x="245" y="245" width="150" height="150" />
-    </svg>
+          {segments.map((segment, index) => {
+            const from = -90 + index * span + gap / 2
+            const to = from + span - gap
+            // Position de départ du milieu de l'arc sur le tour, de 0 à 1 (0 = 3 h, sens horaire).
+            // Elle cale l'animation qui retourne le libellé : dans la moitié basse (de 0 à 0,5),
+            // le texte suit l'arc à l'envers pour rester à l'endroit.
+            const middle = (from + to) / 2
+            const phase = round((((middle % 360) + 360) % 360) / 360)
+            const lower = phase > 0 && phase < 0.5
+            const id = `ring-label-${segment.key}`
+            return (
+              <g
+                key={segment.key}
+                className={`ring__segment ring__segment--${segment.key}`}
+                style={{ '--i': index, '--phase': phase } as CSSProperties}
+              >
+                <path className="ring__arc" d={arc(262, from, to)} pathLength={1} />
+                <path id={id} d={arc(284, from, to)} fill="none" />
+                <path id={`${id}-reverse`} d={arc(296, from, to, true)} fill="none" />
+                <g className="ring__labels">
+                  <text className="ring__label ring__label--top" data-hidden={lower || undefined}>
+                    <textPath href={`#${id}`} startOffset="50%" textAnchor="middle">
+                      {segment.label}
+                    </textPath>
+                  </text>
+                  <text className="ring__label ring__label--bottom" data-hidden={!lower || undefined}>
+                    <textPath href={`#${id}-reverse`} startOffset="50%" textAnchor="middle">
+                      {segment.label}
+                    </textPath>
+                  </text>
+                </g>
+              </g>
+            )
+          })}
+        </svg>
+      </div>
+      <svg className="ring__core" viewBox="0 0 640 640">
+        <circle className="ring__inner" cx={ringCenter} cy={ringCenter} r="196" />
+        <image className="ring__logo" href="/wise-logo.png" x="245" y="245" width="150" height="150" />
+      </svg>
+    </div>
   )
 }
 

@@ -85,6 +85,7 @@
   --header-h: 68px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ring-turn: 60s; /* durée d'un tour complet de l'anneau du hero */
 }
 
 /* Contextes sombres : focus et soulignés passent au lichen. */
@@ -766,12 +767,41 @@ time {
   }
 }
 
-/* L'anneau : les arcs se tracent une fois au chargement, puis l'image reste immobile. */
+/* L'anneau : les arcs se tracent au chargement, puis l'anneau tourne lentement autour du
+   logo fixe. Deux calques superposés : .ring__turn (graduations, arcs, libellés) tourne,
+   .ring__core (cercle intérieur, logo) reste immobile. */
 .ring {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+.ring__turn,
+.ring__core {
+  position: absolute;
+  inset: 0;
+}
+.ring svg {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   overflow: visible;
+}
+.ring__turn {
+  animation: ring-turn var(--ring-turn) linear infinite;
+  will-change: transform;
+}
+@keyframes ring-turn {
+  to {
+    transform: rotate(1turn);
+  }
+}
+/* Au survol, l'anneau s'arrête pour qu'on puisse lire les libellés (rotation et
+   retournement des libellés sont suspendus ensemble, ils restent donc synchrones). */
+@media (hover: hover) {
+  .ring:hover .ring__turn,
+  .ring:hover .ring__label {
+    animation-play-state: paused;
+  }
 }
 .ring__inner {
   fill: none;
@@ -807,6 +837,14 @@ time {
   animation: ring-draw 1.4s var(--ease-out) both;
   animation-delay: calc(var(--i) * 0.35s + 0.2s);
 }
+.ring__labels {
+  animation: ring-label 0.6s var(--ease) both;
+  animation-delay: calc(var(--i) * 0.35s + 0.9s);
+}
+/* Chaque libellé existe deux fois : le long de l'arc (moitié haute) et le long de l'arc
+   parcouru à l'envers (moitié basse). Une animation de la durée d'un tour affiche l'un ou
+   l'autre selon la position de l'arc ; --phase (posée par HeroRing) la cale sur la position
+   de départ. Sans animation, data-hidden masque la version qui ne convient pas au départ. */
 .ring__label {
   font-family: var(--font-sans);
   font-size: 21px;
@@ -814,8 +852,47 @@ time {
   font-stretch: var(--stretch-label);
   letter-spacing: 0.01em;
   fill: var(--text-on-dark);
-  animation: ring-label 0.6s var(--ease) both;
-  animation-delay: calc(var(--i) * 0.35s + 0.9s);
+  animation-duration: var(--ring-turn);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-delay: calc(var(--ring-turn) * var(--phase) * -1);
+}
+.ring__label[data-hidden] {
+  opacity: 0;
+}
+.ring__label--top {
+  animation-name: ring-flip-top;
+}
+.ring__label--bottom {
+  animation-name: ring-flip-bottom;
+}
+/* Phase 0 à 0,5 : milieu de l'arc dans la moitié basse. Court fondu à chaque bascule,
+   quand l'arc passe à 3 h ou à 9 h et que le texte est vertical. */
+@keyframes ring-flip-bottom {
+  0% {
+    opacity: 0;
+  }
+  1.5%,
+  48.5% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes ring-flip-top {
+  0%,
+  50% {
+    opacity: 0;
+  }
+  51.5%,
+  98.5% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 @keyframes ring-draw {
   0% {
