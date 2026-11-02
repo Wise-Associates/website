@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, ArrowRight } from '@/components/Icons'
 import { PageHero } from '@/components/PageHero'
 import { publications } from '@/content/publications'
 import { formatDate } from '@/content/format'
@@ -48,7 +47,6 @@ export default async function PublicationPage({ params }: Props) {
       >
         <p className="article-meta">
           <time dateTime={publication.date}>{formatDate(publication.date)}</time>
-          <span aria-hidden="true">·</span>
           <span>{publication.readingMinutes} min de lecture</span>
         </p>
       </PageHero>
@@ -69,14 +67,14 @@ export default async function PublicationPage({ params }: Props) {
             })}
             {publication.source && (
               <p className="article__source">
-                Source :{' '}
+                Source :{' '}
                 <a href={publication.source.url} rel="noopener noreferrer" target="_blank">
                   {publication.source.label}
                 </a>
               </p>
             )}
-            <Link href="/publications" className="link-arrow">
-              <ArrowLeft /> Toutes nos publications
+            <Link href="/publications" className="link-more">
+              Toutes nos publications
             </Link>
           </article>
         </div>
@@ -85,19 +83,19 @@ export default async function PublicationPage({ params }: Props) {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow">À lire aussi</p>
               <h2 className="h2">D’autres analyses</h2>
             </div>
           </div>
           <ul className="cards">
             {others.map((item) => (
               <li key={item.slug} className="card card--link">
-                <span className="card__index">{item.category}</span>
-                <h3 className="h3">{item.title}</h3>
+                <span className="tag">{item.category}</span>
+                <h3 className="h3">
+                  <Link href={`/publications/${item.slug}`} className="card-link">
+                    {item.title}
+                  </Link>
+                </h3>
                 <p>{item.excerpt}</p>
-                <Link href={`/publications/${item.slug}`} className="link-arrow">
-                  Lire l’article <ArrowRight />
-                </Link>
               </li>
             ))}
           </ul>

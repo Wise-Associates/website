@@ -1,15 +1,23 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { CoverArt, HeroArt, IntroArt, OrbitArt, ServiceEmblem } from '@/components/Art'
-import { ArrowRight } from '@/components/Icons'
+import { CoverArt, HeroBackdrop, HeroRing, IntroArt, OrbitArt, ServiceEmblem } from '@/components/Art'
 import { JsonLd } from '@/components/JsonLd'
 import { formatDate } from '@/content/format'
-import { publications } from '@/content/publications'
+import { publications, type Publication } from '@/content/publications'
 import { company, home, seo } from '@/content/site'
 import { pageMetadata } from '@/lib/seo'
 import { organizationLd, websiteLd } from '@/lib/structured-data'
 
 export const metadata: Metadata = pageMetadata({ ...seo.home, path: '/', absoluteTitle: true, ownShareImage: true })
+
+function PostMeta({ publication }: { publication: Publication }) {
+  return (
+    <p className="post-meta">
+      <span className="tag">{publication.category}</span>
+      <time dateTime={publication.date}>{formatDate(publication.date)}</time>
+    </p>
+  )
+}
 
 export default function HomePage() {
   const [first, second, third] = publications
@@ -18,15 +26,23 @@ export default function HomePage() {
     <>
       <JsonLd data={organizationLd()} />
       <JsonLd data={websiteLd()} />
-      <section className="hero">
-        <HeroArt />
-        <div className="container">
-          <div className="hero__panel">
-            <h1>{home.hero.title}</h1>
+      <section className="hero" aria-labelledby="hero-title">
+        <HeroBackdrop />
+        <div className="container hero__grid">
+          <div className="hero__text">
+            <h1 id="hero-title">{home.hero.title}</h1>
             <p>{home.hero.text}</p>
-            <Link href="/contact" className="btn btn--primary">
-              {home.hero.cta}
-            </Link>
+            <div className="btn-row">
+              <Link href="/contact" className="btn btn--primary">
+                {home.hero.cta}
+              </Link>
+              <Link href="/expertises" className="btn btn--quiet">
+                {home.hero.secondary}
+              </Link>
+            </div>
+          </div>
+          <div className="hero__visual">
+            <HeroRing segments={home.services} />
           </div>
         </div>
       </section>
@@ -50,26 +66,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      {home.services.map((service) => (
-        <section
-          key={service.key}
-          className={`service service--${service.key}`}
-          aria-labelledby={`service-${service.key}`}
-        >
-          <div className="container service__grid">
-            <ServiceEmblem name={service.key} label={service.label} />
-            <div className="service__text">
-              <h2 id={`service-${service.key}`}>{service.title}</h2>
-              {service.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-              <Link href={service.href} className="link-arrow">
-                En savoir plus <ArrowRight />
-              </Link>
+      {/* Les trois offres s'empilent au défilement sur grand écran (voir .services-stack). */}
+      <div className="services-stack">
+        {home.services.map((service) => (
+          <section
+            key={service.key}
+            id={`offre-${service.key}`}
+            className={`service service--${service.key}`}
+            aria-labelledby={`service-${service.key}`}
+          >
+            <div className="container service__grid">
+              <ServiceEmblem name={service.key} label={service.label} />
+              <div className="service__text">
+                <h2 id={`service-${service.key}`}>{service.title}</h2>
+                {service.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+                <Link href={service.href} className="link-more">
+                  {home.readMore}
+                  <span className="visually-hidden"> : {service.label}</span>
+                </Link>
+              </div>
             </div>
-          </div>
-        </section>
-      ))}
+          </section>
+        ))}
+      </div>
 
       <section className="section" aria-labelledby="news-title">
         <div className="container bento">
@@ -78,18 +99,17 @@ export default function HomePage() {
             <p>{home.news.text}</p>
           </div>
           {[first, second].map((publication, index) => (
-            <article key={publication.slug} className="tile">
-              <p className="tile__meta">
-                <time dateTime={publication.date}>{formatDate(publication.date)}</time> · {publication.category}
-              </p>
-              <h3>{publication.title}</h3>
-              <p className="tile__excerpt">{publication.excerpt}</p>
-              <Link href={`/publications/${publication.slug}`} className="link-arrow">
-                En savoir plus <ArrowRight />
-              </Link>
+            <article key={publication.slug} className="tile tile--post">
               <div className="tile__cover">
                 <CoverArt variant={index} />
               </div>
+              <PostMeta publication={publication} />
+              <h3>
+                <Link href={`/publications/${publication.slug}`} className="card-link">
+                  {publication.title}
+                </Link>
+              </h3>
+              <p className="tile__excerpt">{publication.excerpt}</p>
             </article>
           ))}
           <div className="tile tile--plain">
@@ -99,16 +119,15 @@ export default function HomePage() {
               {home.news.cta}
             </Link>
           </div>
-          <article className="tile tile--row bento__wide">
-            <div>
-              <p className="tile__meta">
-                <time dateTime={third.date}>{formatDate(third.date)}</time> · {third.category}
-              </p>
-              <h3>{third.title}</h3>
+          <article className="tile tile--post tile--row bento__wide">
+            <div className="tile__body">
+              <PostMeta publication={third} />
+              <h3>
+                <Link href={`/publications/${third.slug}`} className="card-link">
+                  {third.title}
+                </Link>
+              </h3>
               <p className="tile__excerpt">{third.excerpt}</p>
-              <Link href={`/publications/${third.slug}`} className="link-arrow">
-                En savoir plus <ArrowRight />
-              </Link>
             </div>
             <div className="tile__cover">
               <CoverArt variant={2} />
@@ -138,11 +157,9 @@ export default function HomePage() {
       </section>
 
       <section className="trust" aria-labelledby="trust-title">
-        <div className="container section" style={{ paddingBottom: 0 }}>
-          <div className="trust__head">
-            <h2 id="trust-title">{home.practices.title}</h2>
-            <p>{home.practices.text}</p>
-          </div>
+        <div className="container trust__head">
+          <h2 id="trust-title">{home.practices.title}</h2>
+          <p>{home.practices.text}</p>
         </div>
         <div className="marquee">
           {/* La liste est dupliquée pour un défilement continu ; la copie est masquée aux lecteurs d'écran. */}

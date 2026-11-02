@@ -10,7 +10,6 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
-        eyebrow="Contact"
         title="Nos contacts"
         path="/contact"
         lead="Une question, un projet ? Écrivez-nous ou appelez-nous, nous revenons vers vous rapidement."
@@ -24,7 +23,7 @@ export default function ContactPage() {
               <br />
               {company.address.postalCode} {company.address.locality}, {company.address.country}
             </address>
-            <a className="link-arrow" href={company.mapUrl} target="_blank" rel="noopener noreferrer">
+            <a className="link-more" href={company.mapUrl} target="_blank" rel="noopener noreferrer">
               <Pin /> Voir sur la carte
             </a>
           </div>

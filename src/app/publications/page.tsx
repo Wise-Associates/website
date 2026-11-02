@@ -11,7 +11,6 @@ export default function PublicationsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Nos publications"
         title="Nos publications"
         path="/publications"
         lead="Décryptages réglementaires, analyses de marché et regards sur l’innovation en finance, par nos consultants."

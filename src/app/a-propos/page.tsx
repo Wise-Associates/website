@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { FeatureArt } from '@/components/Art'
-import { ArrowRight } from '@/components/Icons'
 import { PageHero } from '@/components/PageHero'
 import { company, seo, services } from '@/content/site'
 import { pageMetadata } from '@/lib/seo'
@@ -12,7 +11,6 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        eyebrow="Wise Associates en bref"
         title="À propos"
         path="/a-propos"
         lead="Un cabinet de conseil en management basé à Paris, qui intervient exclusivement dans les services financiers."
@@ -20,7 +18,6 @@ export default function AboutPage() {
       <section className="section">
         <div className="container split">
           <div style={{ display: 'grid', gap: 'var(--space-4)' }}>
-            <p className="eyebrow">Notre cabinet</p>
             <h2 className="h2">L’agilité d’un cabinet indépendant, l’exigence des grandes maisons</h2>
           </div>
           <div className="prose">
@@ -35,7 +32,7 @@ export default function AboutPage() {
               institutions financières constituent notre <strong>cœur de métier historique</strong>.
             </p>
             <p>
-              Nous intervenons à travers des pratiques dédiées : <strong>{company.practices.join(', ')}</strong>.
+              Nous intervenons à travers des pratiques dédiées : <strong>{company.practices.join(', ')}</strong>.
             </p>
           </div>
         </div>
@@ -62,11 +59,10 @@ export default function AboutPage() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow">Nos services</p>
               <h2 className="h2">Ce que nous faisons</h2>
             </div>
-            <Link href="/expertises" className="link-arrow">
-              Nos expertises <ArrowRight />
+            <Link href="/expertises" className="link-more">
+              Nos expertises
             </Link>
           </div>
           <ul className="cards">

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight } from '@/components/Icons'
 import { PageHero } from '@/components/PageHero'
 import { expertises, seo, services } from '@/content/site'
 import { pageMetadata } from '@/lib/seo'
@@ -11,7 +10,6 @@ export default function ExpertisesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Nos expertises"
         title="Nos expertises"
         path="/expertises"
         lead="Nos consultants interviennent au cœur des transformations des banques et des institutions financières, du cadrage réglementaire jusqu’au déploiement d’outils innovants."
@@ -19,14 +17,14 @@ export default function ExpertisesPage() {
       <section className="section">
         <div className="container">
           <ul className="cards">
-            {expertises.map((expertise, index) => (
+            {expertises.map((expertise) => (
               <li key={expertise.slug} className="card card--link">
-                <span className="card__index">0{index + 1}</span>
-                <h2 className="h3">{expertise.title}</h2>
+                <h2 className="h3">
+                  <Link href={`/expertises/${expertise.slug}`} className="card-link">
+                    {expertise.title}
+                  </Link>
+                </h2>
                 <p>{expertise.short}</p>
-                <Link href={`/expertises/${expertise.slug}`} className="link-arrow">
-                  Découvrir <ArrowRight />
-                </Link>
               </li>
             ))}
           </ul>
@@ -36,7 +34,6 @@ export default function ExpertisesPage() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow">Nos services</p>
               <h2 className="h2">Trois offres complémentaires</h2>
             </div>
           </div>

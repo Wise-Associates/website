@@ -32,17 +32,17 @@ export const publications: Publication[] = [
       'Avec CRR2, la méthode SA-CCR devient la référence pour mesurer l’exposition au risque de contrepartie. Ce qui change par rapport aux méthodes CEM et SM, et les conséquences sur le reporting.',
     readingMinutes: 6,
     body: [
-      { kind: 'heading', text: 'Le « paquet bancaire » européen' },
+      { kind: 'heading', text: 'Le « paquet bancaire » européen' },
       {
         kind: 'paragraph',
-        text: 'Initié par la Commission européenne en novembre 2016, le paquet bancaire a été adopté par le Parlement européen le 16 avril 2019 puis par le Conseil le 14 mai 2019, avant d’entrer en vigueur à l’été 2019. Il réunit quatre textes :',
+        text: 'Initié par la Commission européenne en novembre 2016, le paquet bancaire a été adopté par le Parlement européen le 16 avril 2019 puis par le Conseil le 14 mai 2019, avant d’entrer en vigueur à l’été 2019. Il réunit quatre textes :',
       },
       {
         kind: 'list',
         items: [
-          'CRR II, le règlement sur les exigences de fonds propres ;',
-          'CRD V, la directive sur les exigences de fonds propres ;',
-          'BRRD II, la directive sur le redressement et la résolution des banques ;',
+          'CRR II, le règlement sur les exigences de fonds propres ;',
+          'CRD V, la directive sur les exigences de fonds propres ;',
+          'BRRD II, la directive sur le redressement et la résolution des banques ;',
           'SRMR, le règlement sur le mécanisme de résolution unique.',
         ],
       },
@@ -53,7 +53,7 @@ export const publications: Publication[] = [
       { kind: 'heading', text: 'Pourquoi le SA-CCR remplace CEM et SM' },
       {
         kind: 'paragraph',
-        text: 'Le Comité de Bâle a finalisé en mars 2014 la nouvelle approche standard de calcul de l’exposition en cas de défaut (EAD) au titre du risque de contrepartie, le SA-CCR. CRR II la reprend pour remplacer la Current Exposure Method (CEM) et la Standardised Method (SM). La crise avait mis en évidence leurs limites : prise en compte insuffisante du collatéral et calibrages peu représentatifs de la volatilité en période de tension.',
+        text: 'Le Comité de Bâle a finalisé en mars 2014 la nouvelle approche standard de calcul de l’exposition en cas de défaut (EAD) au titre du risque de contrepartie, le SA-CCR. CRR II la reprend pour remplacer la Current Exposure Method (CEM) et la Standardised Method (SM). La crise avait mis en évidence leurs limites : prise en compte insuffisante du collatéral et calibrages peu représentatifs de la volatilité en période de tension.',
       },
       {
         kind: 'paragraph',
@@ -62,14 +62,14 @@ export const publications: Publication[] = [
       { kind: 'heading', text: 'Le calcul de l’EAD' },
       {
         kind: 'paragraph',
-        text: 'Dans les deux approches, l’EAD combine un coût de remplacement (Replacement Cost, l’exposition courante) et une exposition future potentielle (Potential Future Exposure, la hausse possible de l’exposition à un an). Les différences portent sur chacun de ces termes :',
+        text: 'Dans les deux approches, l’EAD combine un coût de remplacement (Replacement Cost, l’exposition courante) et une exposition future potentielle (Potential Future Exposure, la hausse possible de l’exposition à un an). Les différences portent sur chacun de ces termes :',
       },
       {
         kind: 'list',
         items: [
-          'EAD : simple somme RC + PFE en CEM ; en SA-CCR, cette somme est multipliée par un facteur α de 1,4, hérité de l’approche par modèles internes.',
-          'Coût de remplacement : en SA-CCR, il est calculé différemment selon que les transactions font l’objet d’appels de marge ou non, en intégrant le collatéral net, le seuil (TH) et le montant minimal de transfert (MTA).',
-          'Exposition future : le produit d’un notionnel par un facteur superviseur en CEM laisse place, en SA-CCR, à un add-on calculé par classe d’actifs et modulé par un multiplicateur qui reconnaît l’excès de collatéral.',
+          'EAD : simple somme RC + PFE en CEM ; en SA-CCR, cette somme est multipliée par un facteur α de 1,4, hérité de l’approche par modèles internes.',
+          'Coût de remplacement : en SA-CCR, il est calculé différemment selon que les transactions font l’objet d’appels de marge ou non, en intégrant le collatéral net, le seuil (TH) et le montant minimal de transfert (MTA).',
+          'Exposition future : le produit d’un notionnel par un facteur superviseur en CEM laisse place, en SA-CCR, à un add-on calculé par classe d’actifs et modulé par un multiplicateur qui reconnaît l’excès de collatéral.',
         ],
       },
       { kind: 'heading', text: 'Les principales évolutions' },
@@ -90,7 +90,7 @@ export const publications: Publication[] = [
       { kind: 'heading', text: 'Conséquences sur le reporting' },
       {
         kind: 'paragraph',
-        text: 'CRR2 renforce la transparence des reportings réglementaires. L’EBA a mis à jour la cartographie des données de surveillance et précisé la fréquence de remise de chaque état selon le type d’établissement. Les ITS 3.0 traduisent ces évolutions dans COREP et FINREP ; le suivi du risque de contrepartie s’appuie désormais sur onze nouveaux états COREP (C 34) consacrés aux expositions sur dérivés.',
+        text: 'CRR2 renforce la transparence des reportings réglementaires. L’EBA a mis à jour la cartographie des données de surveillance et précisé la fréquence de remise de chaque état selon le type d’établissement. Les ITS 3.0 traduisent ces évolutions dans COREP et FINREP ; le suivi du risque de contrepartie s’appuie désormais sur onze nouveaux états COREP (C 34) consacrés aux expositions sur dérivés.',
       },
     ],
   },
@@ -106,7 +106,7 @@ export const publications: Publication[] = [
     body: [
       {
         kind: 'paragraph',
-        text: 'Le ratio de financement stable net (NSFR) est devenu contraignant en juin 2021. Dernière brique du dispositif de liquidité construit après 2008, il complète le LCR et les métriques de surveillance additionnelles (ALMM) en ajoutant un horizon d’un an : les banques doivent disposer de ressources stables cohérentes avec la structure de leurs emplois.',
+        text: 'Le ratio de financement stable net (NSFR) est devenu contraignant en juin 2021. Dernière brique du dispositif de liquidité construit après 2008, il complète le LCR et les métriques de surveillance additionnelles (ALMM) en ajoutant un horizon d’un an : les banques doivent disposer de ressources stables cohérentes avec la structure de leurs emplois.',
       },
       {
         kind: 'paragraph',
@@ -116,9 +116,9 @@ export const publications: Publication[] = [
       {
         kind: 'list',
         items: [
-          'Incohérences avec le LCR : les titres HQLA de niveau 1 sans décote dans le LCR en subissaient une de 5 % dans le NSFR bâlois, et les spécificités du trade finance n’étaient pas reprises.',
+          'Incohérences avec le LCR : les titres HQLA de niveau 1 sans décote dans le LCR en subissaient une de 5 % dans le NSFR bâlois, et les spécificités du trade finance n’étaient pas reprises.',
           'Asymétries pénalisantes sur les prêts et emprunts financiers à court terme, qui touchaient surtout la trésorerie et la banque de financement et d’investissement, notamment les matchbooks repos.',
-          'Surcharge sur les dérivés : un besoin de financement de 20 % sur la juste valeur brute des dérivés passifs, sans prise en compte du collatéral.',
+          'Surcharge sur les dérivés : un besoin de financement de 20 % sur la juste valeur brute des dérivés passifs, sans prise en compte du collatéral.',
         ],
       },
       { kind: 'heading', text: '… mais assoupli dans la CRR2' },
@@ -128,29 +128,29 @@ export const publications: Publication[] = [
           'Décote nulle sur la dette souveraine détenue, alignée sur le LCR.',
           'Facteurs RSF réduits sur le trade finance de moins de six mois, avec des facteurs spécifiques sur les garanties associées.',
           'Asymétries fortement réduites sur les money markets et les repos, à titre transitoire, avec un réexamen prévu en juin 2023.',
-          'Besoin additionnel sur les dérivés passifs ramené au minimum bâlois de 5 %.',
+          'Besoin additionnel sur les dérivés passifs ramené au minimum bâlois de 5 %.',
         ],
       },
       {
         kind: 'paragraph',
-        text: 'L’Union a en revanche repris le traitement bâlois des actifs et passifs interdépendants. Les banques françaises qui centralisent les livrets réglementés auprès de la Caisse des dépôts en supportent un impact net d’environ 10 % du montant centralisé, inégal selon leur niveau de collecte.',
+        text: 'L’Union a en revanche repris le traitement bâlois des actifs et passifs interdépendants. Les banques françaises qui centralisent les livrets réglementés auprès de la Caisse des dépôts en supportent un impact net d’environ 10 % du montant centralisé, inégal selon leur niveau de collecte.',
       },
       { kind: 'heading', text: 'Un NSFR simplifié pour les petits établissements' },
       {
         kind: 'paragraph',
-        text: 'Les établissements de petite taille et non complexes peuvent demander à appliquer un NSFR simplifié : deux tranches de maturité seulement (moins d’un an, un an et plus), moins de lignes de reporting et des facteurs RSF moins différenciés. Plus simple, cette version se révèle souvent plus pénalisante, notamment pour les titres HQLA hors niveau 1, le trade finance, les opérations de marché monétaire et certains prêts immobiliers.',
+        text: 'Les établissements de petite taille et non complexes peuvent demander à appliquer un NSFR simplifié : deux tranches de maturité seulement (moins d’un an, un an et plus), moins de lignes de reporting et des facteurs RSF moins différenciés. Plus simple, cette version se révèle souvent plus pénalisante, notamment pour les titres HQLA hors niveau 1, le trade finance, les opérations de marché monétaire et certains prêts immobiliers.',
       },
       { kind: 'heading', text: 'De nouveaux ITS' },
       {
         kind: 'paragraph',
-        text: 'Dans le cadre de la version 3.0 du DPM, l’EBA a publié un outil de calcul couvrant l’ensemble des dispositions européennes : onglets 80 et 81 pour le NSFR standard (RSF et ASF), 82 et 83 pour le NSFR simplifié, 84 pour la synthèse et le ratio final.',
+        text: 'Dans le cadre de la version 3.0 du DPM, l’EBA a publié un outil de calcul couvrant l’ensemble des dispositions européennes : onglets 80 et 81 pour le NSFR standard (RSF et ASF), 82 et 83 pour le NSFR simplifié, 84 pour la synthèse et le ratio final.',
       },
       { kind: 'heading', text: 'Notre accompagnement' },
       {
         kind: 'list',
         items: [
           'Production du NSFR dans ses différents formats (QIS, ITS, outils de pilotage interne).',
-          'Mise en œuvre des évolutions du NSFR européen : collecte des données, calcul et reporting.',
+          'Mise en œuvre des évolutions du NSFR européen : collecte des données, calcul et reporting.',
           'Coordination entre liquidité réglementaire, ALM, métiers, comptabilité et COREP.',
         ],
       },
@@ -163,7 +163,7 @@ export const publications: Publication[] = [
     date: '2021-09-26',
     category: 'Finance durable',
     excerpt:
-      'Notre sélection : un numéro des Cahiers Louis Bachelier qui réunit des recommandations de la recherche pour réussir la transition bas-carbone et développer une finance durable.',
+      'Notre sélection : un numéro des Cahiers Louis Bachelier qui réunit des recommandations de la recherche pour réussir la transition bas-carbone et développer une finance durable.',
     readingMinutes: 3,
     body: [
       {
@@ -173,7 +173,7 @@ export const publications: Publication[] = [
       { kind: 'heading', text: 'Les travaux de l’Institut Louis Bachelier' },
       {
         kind: 'paragraph',
-        text: 'L’ILB anime depuis 2018 le programme interdisciplinaire Green and Sustainable Finance et héberge plusieurs chaires consacrées à ces sujets : Économie du Climat, Finance Durable et Investissement Responsable, Finance et Développement Durable, Énergie & Prospérité.',
+        text: 'L’ILB anime depuis 2018 le programme interdisciplinaire Green and Sustainable Finance et héberge plusieurs chaires consacrées à ces sujets : Économie du Climat, Finance Durable et Investissement Responsable, Finance et Développement Durable, Énergie & Prospérité.',
       },
       { kind: 'heading', text: 'Au sommaire de ce numéro' },
       {
@@ -187,7 +187,7 @@ export const publications: Publication[] = [
       },
       {
         kind: 'paragraph',
-        text: 'Pourquoi cette lecture nous intéresse : l’évaluation des risques climatiques et la qualité des données sont désormais au cœur des attentes des superviseurs envers les banques et les assureurs.',
+        text: 'Pourquoi cette lecture nous intéresse : l’évaluation des risques climatiques et la qualité des données sont désormais au cœur des attentes des superviseurs envers les banques et les assureurs.',
       },
     ],
     source: { label: 'Les Cahiers Louis Bachelier', url: 'https://www.institutlouisbachelier.org/' },
@@ -199,7 +199,7 @@ export const publications: Publication[] = [
     date: '2021-09-25',
     category: 'Innovation',
     excerpt:
-      'Notre sélection : les Cahiers Louis Bachelier consacrés à l’intelligence artificielle en finance, de la gestion des risques aux robots-conseillers et aux biais des algorithmes.',
+      'Notre sélection : les Cahiers Louis Bachelier consacrés à l’intelligence artificielle en finance, de la gestion des risques aux robots-conseillers et aux biais des algorithmes.',
     readingMinutes: 3,
     body: [
       {
@@ -209,7 +209,7 @@ export const publications: Publication[] = [
       { kind: 'heading', text: 'Un sujet suivi de longue date par l’ILB' },
       {
         kind: 'paragraph',
-        text: 'L’Institut Louis Bachelier travaille sur ces questions depuis 2014 : conférences Meet the Data avec l’Université de Berkeley, création de l’ILB DataLab en 2015, puis lancement du programme Finance and Insurance Reloaded (FaIR) et de la Chaire Finance Digitale.',
+        text: 'L’Institut Louis Bachelier travaille sur ces questions depuis 2014 : conférences Meet the Data avec l’Université de Berkeley, création de l’ILB DataLab en 2015, puis lancement du programme Finance and Insurance Reloaded (FaIR) et de la Chaire Finance Digitale.',
       },
       { kind: 'heading', text: 'Au sommaire de ce numéro' },
       {
@@ -223,7 +223,7 @@ export const publications: Publication[] = [
       },
       {
         kind: 'paragraph',
-        text: 'Pourquoi cette lecture nous intéresse : la transparence et l’explicabilité des modèles sont des conditions de leur acceptation par les métiers comme par les régulateurs, un point central dans nos missions Data et Digital.',
+        text: 'Pourquoi cette lecture nous intéresse : la transparence et l’explicabilité des modèles sont des conditions de leur acceptation par les métiers comme par les régulateurs, un point central dans nos missions Data et Digital.',
       },
     ],
     source: { label: 'Les Cahiers Louis Bachelier', url: 'https://www.institutlouisbachelier.org/' },

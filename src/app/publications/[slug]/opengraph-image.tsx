@@ -17,7 +17,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const publication = publications.find((item) => item.slug === slug)
   if (!publication) notFound()
   return renderOgImage({
-    eyebrow: `${publication.category} · ${formatDate(publication.date)}`,
+    eyebrow: `${publication.category}, ${formatDate(publication.date)}`,
     title: publication.title,
   })
 }

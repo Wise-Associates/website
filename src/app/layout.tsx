@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
-import '@fontsource/roboto/400.css'
-import '@fontsource/roboto/500.css'
+// Instrument Sans en police variable avec l'axe de chasse (wdth) : les libellés utilisent une chasse
+// étroite plutôt que des capitales espacées. Space Grotesk pour les titres.
+import '@fontsource-variable/instrument-sans/wdth.css'
 import '@fontsource/space-grotesk/400.css'
 import '@fontsource/space-grotesk/500.css'
-import '@fontsource/space-grotesk/600.css'
 import './globals.css'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
 }
 
-export const viewport: Viewport = { themeColor: '#13211a' }
+export const viewport: Viewport = { themeColor: '#0e1712' }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

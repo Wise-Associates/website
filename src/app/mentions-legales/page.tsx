@@ -9,7 +9,7 @@ export const metadata: Metadata = pageMetadata({ ...seo.mentionsLegales, path: '
 export default function LegalPage() {
   return (
     <>
-      <PageHero eyebrow="Informations légales" title="Mentions légales" path="/mentions-legales" />
+      <PageHero title="Mentions légales" path="/mentions-legales" />
       <section className="section">
         <div className="container legal">
           <section>
@@ -25,7 +25,7 @@ export default function LegalPage() {
               </dd>
               <dt>Contact</dt>
               <dd>
-                {company.phone} · <a href={`mailto:${company.email}`}>{company.email}</a>
+                {company.phone}, <a href={`mailto:${company.email}`}>{company.email}</a>
               </dd>
               <dt>Directrice de la publication</dt>
               <dd>Leyla Bathaei, co-gérante</dd>
@@ -35,7 +35,7 @@ export default function LegalPage() {
             <h2 className="h3">Hébergement</h2>
             {/* À confirmer au moment de la mise en production (ancien hébergeur : IONOS). */}
             <p>
-              Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis ·{' '}
+              Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis,{' '}
               <a href="https://vercel.com">vercel.com</a>
             </p>
           </section>
@@ -73,7 +73,7 @@ export default function LegalPage() {
           <section>
             <h2 className="h3">Liens vers des sites tiers</h2>
             <p>
-              Les liens vers des sites tiers sont fournis de bonne foi ; Wise Associates n’est pas responsable de
+              Les liens vers des sites tiers sont fournis de bonne foi ; Wise Associates n’est pas responsable de
               leur contenu ni de leurs évolutions.
             </p>
           </section>

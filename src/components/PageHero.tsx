@@ -13,7 +13,8 @@ export function PageHero({
   crumbs = [],
   children,
 }: {
-  eyebrow: string
+  // Catégorie affichée au-dessus du titre, seulement quand elle apporte une information.
+  eyebrow?: string
   title: string
   // Chemin de la page courante, pour le fil d'Ariane lu par les moteurs de recherche.
   path: string
@@ -43,7 +44,7 @@ export function PageHero({
             <li aria-current="page">{title}</li>
           </ol>
         </nav>
-        <p className="eyebrow">{eyebrow}</p>
+        {eyebrow && <p className="eyebrow">{eyebrow}</p>}
         <h1 className="display">{title}</h1>
         {lead && <p className="lead">{lead}</p>}
         {children}

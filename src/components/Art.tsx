@@ -1,33 +1,77 @@
+import type { CSSProperties } from 'react'
+
 // Illustrations vectorielles dessinées pour le site : aucune photo, vidéo ni image de tiers.
 
-// Fond du hero. Les halos et l'emblème tournant sont des calques HTML animés en CSS
-// (transform), donc pris en charge par le GPU : animer des éléments à l'intérieur d'un SVG
-// forcerait le navigateur à tout recalculer et repeindre à chaque image, ce qui ralentit
-// l'affichage sur mobile.
-export function HeroArt() {
+// Fond du hero : halos qui dérivent lentement. Ce sont des calques HTML animés en CSS
+// (transform), donc pris en charge par le GPU ; animer des éléments à l'intérieur d'un SVG
+// forcerait le navigateur à tout repeindre à chaque image, ce qui ralentit le mobile.
+export function HeroBackdrop() {
   return (
     <div className="hero__bg" aria-hidden="true">
       <span className="orb orb--1" />
       <span className="orb orb--2" />
       <span className="orb orb--3" />
-      <svg className="facet" viewBox="0 0 840 840">
-        <defs>
-          <linearGradient id="hero-facet" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="var(--paper)" stopOpacity="0.28" />
-            <stop offset="1" stopColor="var(--paper)" stopOpacity="0.02" />
-          </linearGradient>
-        </defs>
-        <g fill="none" stroke="var(--accent)" strokeOpacity="0.35">
-          <circle cx="420" cy="420" r="330" />
-          <circle cx="420" cy="420" r="410" strokeDasharray="2 12" />
-        </g>
-        <g fill="url(#hero-facet)" stroke="var(--paper)" strokeOpacity="0.22">
-          <polygon points="420,160 630,420 420,680 210,420" />
-          <polygon points="420,240 560,420 420,600 280,420" fill="none" />
-          <polygon points="420,160 420,680 630,420" fillOpacity="0.4" />
-        </g>
-      </svg>
     </div>
+  )
+}
+
+const ringCenter = 320
+const round = (value: number) => Math.round(value * 100) / 100
+
+function polar(radius: number, degrees: number) {
+  const radians = (degrees * Math.PI) / 180
+  return [round(ringCenter + radius * Math.cos(radians)), round(ringCenter + radius * Math.sin(radians))]
+}
+
+// Arc de cercle entre deux angles (0° = 3 h, sens horaire). « reverse » le parcourt dans l'autre
+// sens, pour que le texte posé dessus reste lisible dans la moitié basse de l'anneau.
+function arc(radius: number, from: number, to: number, reverse = false) {
+  const [x1, y1] = polar(radius, reverse ? to : from)
+  const [x2, y2] = polar(radius, reverse ? from : to)
+  const largeArc = to - from > 180 ? 1 : 0
+  return `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} ${reverse ? 0 : 1} ${x2} ${y2}`
+}
+
+type RingSegment = { key: 'risk' | 'efficiency' | 'strategy'; label: string }
+
+// « L'anneau Wise » : le cercle du logo, partagé en trois arcs qui sont les trois offres du
+// cabinet. Chaque arc reprend la couleur du panneau de l'offre plus bas dans la page.
+// Les arcs se tracent une seule fois au chargement ; l'image reste ensuite immobile.
+export function HeroRing({ segments }: { segments: readonly RingSegment[] }) {
+  const span = 360 / segments.length
+  const gap = 12
+  return (
+    <svg className="ring" viewBox="0 0 640 640" aria-hidden="true">
+      <circle className="ring__inner" cx={ringCenter} cy={ringCenter} r="196" />
+      <g className="ring__ticks">
+        {Array.from({ length: 72 }, (_, index) => {
+          const angle = index * 5
+          const major = index % 6 === 0
+          const [x1, y1] = polar(major ? 206 : 212, angle)
+          const [x2, y2] = polar(222, angle)
+          return <line key={angle} x1={x1} y1={y1} x2={x2} y2={y2} className={major ? 'ring__tick--major' : undefined} />
+        })}
+      </g>
+      {segments.map((segment, index) => {
+        const from = -90 + index * span + gap / 2
+        const to = from + span - gap
+        const middle = (from + to) / 2
+        // Dans la moitié basse, le texte suit l'arc à l'envers pour rester à l'endroit.
+        const lower = middle > 0 && middle < 180
+        return (
+          <g key={segment.key} className={`ring__segment ring__segment--${segment.key}`} style={{ '--i': index } as CSSProperties}>
+            <path className="ring__arc" d={arc(262, from, to)} pathLength={1} />
+            <path id={`ring-label-${segment.key}`} d={arc(lower ? 296 : 284, from, to, lower)} fill="none" />
+            <text className="ring__label">
+              <textPath href={`#ring-label-${segment.key}`} startOffset="50%" textAnchor="middle">
+                {segment.label}
+              </textPath>
+            </text>
+          </g>
+        )
+      })}
+      <image className="ring__logo" href="/wise-logo.png" x="245" y="245" width="150" height="150" />
+    </svg>
   )
 }
 
@@ -73,13 +117,10 @@ export function ServiceEmblem({ name, label }: { name: keyof typeof emblemPaths;
   return (
     <div className="service__emblem" aria-hidden="true">
       <svg viewBox="0 0 72 72">
-        <circle cx="36" cy="36" r="33" fill="none" stroke="var(--accent)" strokeWidth="3" />
+        <circle cx="36" cy="36" r="33" fill="none" stroke="var(--tone)" strokeWidth="3" />
         <path d={emblemPaths[name]} fill="none" stroke="var(--text-on-dark)" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      <div>
-        <strong>WISE</strong>
-        <span>{label}</span>
-      </div>
+      <span>{label}</span>
     </div>
   )
 }

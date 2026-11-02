@@ -5,7 +5,7 @@ Site vitrine de Wise Associates, cabinet de conseil en management (Paris), dédi
 - Next.js 16 (App Router), entièrement statique : aucune base de données, aucun formulaire, aucun script tiers.
 - Contenu éditorial centralisé dans `src/content/site.ts` (accueil, expertises, services, offres d’emploi, coordonnées) et `src/content/publications.ts` (articles).
 - Styles dans `src/app/globals.css` : toutes les couleurs, polices et espacements sont des variables CSS (`:root`).
-- Polices auto-hébergées via `@fontsource` (Space Grotesk pour les titres, Roboto pour le texte) : pas d’appel à Google Fonts.
+- Polices auto-hébergées via `@fontsource` (Space Grotesk pour les titres, Instrument Sans variable pour le texte et les libellés en chasse étroite) : pas d’appel à Google Fonts.
 - Logo officiel : `public/wise-logo.png` (noir, inversé en CSS sur fond sombre). Les illustrations sont des SVG maison dans `src/components/Art.tsx`, colorées par les variables `--art-*`.
 
 ## Démarrer
