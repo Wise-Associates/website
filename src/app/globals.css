@@ -530,6 +530,11 @@ time {
     border-radius: 2px 2px 0 0;
     background: var(--accent);
   }
+  /* Menu déroulant : le trait s'arrête au texte, sans passer sous la flèche
+     (Caret : 10 px de large, séparée du texte par l'écart var(--space-2) du lien). */
+  .nav__link[data-current='true']::after {
+    right: calc(10px + var(--space-2));
+  }
 }
 .nav__link svg {
   transition: transform 0.2s var(--ease);
