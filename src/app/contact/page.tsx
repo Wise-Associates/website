@@ -1,19 +1,17 @@
 import type { Metadata } from 'next'
 import { Pin } from '@/components/Icons'
 import { PageHero } from '@/components/PageHero'
-import { company } from '@/content/site'
+import { company, seo } from '@/content/site'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Contact',
-  description: 'Contacter Wise Associates, 66 avenue des Champs-Élysées, 75008 Paris.',
-}
+export const metadata: Metadata = pageMetadata({ ...seo.contact, path: '/contact' })
 
 export default function ContactPage() {
   return (
     <>
       <PageHero
-        eyebrow="Contact"
         title="Nos contacts"
+        path="/contact"
         lead="Une question, un projet ? Écrivez-nous ou appelez-nous, nous revenons vers vous rapidement."
       />
       <section className="section">
@@ -23,9 +21,9 @@ export default function ContactPage() {
             <address style={{ fontStyle: 'normal', fontSize: '1.125rem', fontWeight: 600 }}>
               {company.address.street}
               <br />
-              {company.address.city}, {company.address.country}
+              {company.address.postalCode} {company.address.locality}, {company.address.country}
             </address>
-            <a className="link-arrow" href={company.mapUrl} target="_blank" rel="noopener noreferrer">
+            <a className="link-more" href={company.mapUrl} target="_blank" rel="noopener noreferrer">
               <Pin /> Voir sur la carte
             </a>
           </div>

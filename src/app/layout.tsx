@@ -1,25 +1,27 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
-import '@fontsource-variable/inter'
-import '@fontsource-variable/fraunces'
+// Instrument Sans en police variable avec l'axe de chasse (wdth) : les libellés utilisent une chasse
+// étroite plutôt que des capitales espacées. Space Grotesk pour les titres.
+import '@fontsource-variable/instrument-sans/wdth.css'
+import '@fontsource/space-grotesk/400.css'
+import '@fontsource/space-grotesk/500.css'
 import './globals.css'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
+import { seo } from '@/content/site'
+import { siteName, siteUrl } from '@/lib/seo'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://wise-associates.fr'
-
+// Valeurs par défaut ; chaque page précise les siennes avec pageMetadata (src/lib/seo.ts).
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: {
-    default: 'Wise Associates, cabinet de conseil en management',
-    template: '%s | Wise Associates',
-  },
-  description:
-    'Cabinet de conseil en management basé à Paris, dédié aux services financiers : risques, conformité, data management et transformation digitale.',
-  openGraph: { type: 'website', locale: 'fr_FR', siteName: 'Wise Associates' },
+  title: { default: seo.home.title, template: `%s | ${siteName}` },
+  description: seo.home.description,
+  applicationName: siteName,
+  openGraph: { type: 'website', locale: 'fr_FR', siteName },
+  twitter: { card: 'summary_large_image' },
 }
 
-export const viewport: Viewport = { themeColor: '#0b1626' }
+export const viewport: Viewport = { themeColor: '#0e1712' }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

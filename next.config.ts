@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import { legacyJobPaths, legacyRedirects } from './src/content/legacy-urls'
 import { publications } from './src/content/publications'
 
 // Le site est entièrement statique : pas de script tiers, pas d'iframe, pas de formulaire.
@@ -48,6 +49,8 @@ const nextConfig: NextConfig = {
         destination: `/publications/${publication.slug}`,
         permanent: true,
       })),
+      ...legacyJobPaths.map((source) => ({ source, destination: '/recrutement', permanent: true })),
+      ...legacyRedirects.map((redirect) => ({ ...redirect, permanent: true })),
       // Une seule adresse canonique : www.wise-associates.fr renvoie vers wise-associates.fr.
       {
         source: '/:path*',

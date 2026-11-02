@@ -1,16 +1,15 @@
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/PageHero'
-import { company } from '@/content/site'
+import { company, seo } from '@/content/site'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Mentions légales et confidentialité',
-  robots: { index: true, follow: true },
-}
+// Page utile mais sans intérêt dans les résultats de recherche : non indexée, liens suivis.
+export const metadata: Metadata = pageMetadata({ ...seo.mentionsLegales, path: '/mentions-legales', noindex: true })
 
 export default function LegalPage() {
   return (
     <>
-      <PageHero eyebrow="Informations légales" title="Mentions légales" />
+      <PageHero title="Mentions légales" path="/mentions-legales" />
       <section className="section">
         <div className="container legal">
           <section>
@@ -22,11 +21,11 @@ export default function LegalPage() {
               <dd>RCS Paris B 798 256 509, SIRET 798 256 509 00026</dd>
               <dt>Siège social</dt>
               <dd>
-                {company.address.street}, {company.address.city}
+                {company.address.street}, {company.address.postalCode} {company.address.locality}
               </dd>
               <dt>Contact</dt>
               <dd>
-                {company.phone} · <a href={`mailto:${company.email}`}>{company.email}</a>
+                {company.phone}, <a href={`mailto:${company.email}`}>{company.email}</a>
               </dd>
               <dt>Directrice de la publication</dt>
               <dd>Leyla Bathaei, co-gérante</dd>
@@ -36,7 +35,7 @@ export default function LegalPage() {
             <h2 className="h3">Hébergement</h2>
             {/* À confirmer au moment de la mise en production (ancien hébergeur : IONOS). */}
             <p>
-              Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis ·{' '}
+              Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis,{' '}
               <a href="https://vercel.com">vercel.com</a>
             </p>
           </section>
@@ -74,7 +73,7 @@ export default function LegalPage() {
           <section>
             <h2 className="h3">Liens vers des sites tiers</h2>
             <p>
-              Les liens vers des sites tiers sont fournis de bonne foi ; Wise Associates n’est pas responsable de
+              Les liens vers des sites tiers sont fournis de bonne foi ; Wise Associates n’est pas responsable de
               leur contenu ni de leurs évolutions.
             </p>
           </section>

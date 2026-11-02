@@ -1,243 +1,178 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import { HeroArt, FeatureArt } from '@/components/Art'
-import { Carousel } from '@/components/Carousel'
-import { ArrowRight, Pin, ServiceIcon } from '@/components/Icons'
-import { PublicationCard } from '@/components/PublicationCard'
-import { publications } from '@/content/publications'
-import { company, expertises, jobOffers, services } from '@/content/site'
+import { CoverArt, HeroBackdrop, HeroRing, IntroArt, OrbitArt, ServiceEmblem } from '@/components/Art'
+import { JsonLd } from '@/components/JsonLd'
+import { formatDate } from '@/content/format'
+import { publications, type Publication } from '@/content/publications'
+import { company, home, seo } from '@/content/site'
+import { pageMetadata } from '@/lib/seo'
+import { organizationLd, websiteLd } from '@/lib/structured-data'
 
-const serviceIconNames = ['risk', 'efficiency', 'strategy'] as const
+export const metadata: Metadata = pageMetadata({ ...seo.home, path: '/', absoluteTitle: true, ownShareImage: true })
+
+function PostMeta({ publication }: { publication: Publication }) {
+  return (
+    <p className="post-meta">
+      <span className="tag">{publication.category}</span>
+      <time dateTime={publication.date}>{formatDate(publication.date)}</time>
+    </p>
+  )
+}
 
 export default function HomePage() {
+  const [first, second, third] = publications
+
   return (
     <>
-      <section className="hero">
-        <HeroArt />
+      <JsonLd data={organizationLd()} />
+      <JsonLd data={websiteLd()} />
+      <section className="hero" aria-labelledby="hero-title">
+        <HeroBackdrop />
         <div className="container hero__grid">
-          <div className="hero__content">
-            <p className="eyebrow">{company.tagline} · Paris</p>
-            <h1 className="display">
-              L’expertise métier et la réglementation bancaire,{' '}
-              <span className="hero__accent">portées par l’innovation.</span>
-            </h1>
-            <p className="lead">
-              Une capacité unique à combiner l’expertise des métiers et la connaissance détaillée de la
-              réglementation bancaire, grâce à l’innovation technologique.
-            </p>
+          <div className="hero__text">
+            <h1 id="hero-title">{home.hero.title}</h1>
+            <p>{home.hero.text}</p>
             <div className="btn-row">
               <Link href="/contact" className="btn btn--primary">
-                Contactez-nous <ArrowRight />
+                {home.hero.cta}
               </Link>
-              <Link href="/a-propos" className="btn btn--ghost">
-                Wise Associates en bref
-              </Link>
-            </div>
-          </div>
-          <div className="hero__meta">
-            <dl>
-              <dt>Cœur de métier</dt>
-              <dd>Risques et conformité réglementaire</dd>
-            </dl>
-            <dl>
-              <dt>Clients</dt>
-              <dd>Banques et institutions financières</dd>
-            </dl>
-            <dl>
-              <dt>Présence</dt>
-              <dd>Paris · Middle East Africa</dd>
-            </dl>
-            <dl>
-              <dt>
-                <Pin size={14} /> Nous trouver
-              </dt>
-              <dd>
-                <a href={company.mapUrl} rel="noopener noreferrer" target="_blank">
-                  {company.address.street}
-                </a>
-              </dd>
-            </dl>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container split">
-          <div style={{ display: 'grid', gap: 'var(--space-4)' }}>
-            <p className="eyebrow">Unis par notre expertise</p>
-            <h2 className="h2">Une alternative aux grandes maisons de conseil</h2>
-          </div>
-          <div className="prose">
-            <p>
-              Wise Associates est un <strong>cabinet de conseil en management</strong> basé à Paris, qui accompagne
-              ses clients dans leurs projets de transformation sur l’ensemble des domaines de la finance.
-            </p>
-            <p>
-              Alternative aux grandes maisons en France comme à l’international, nous apportons une expertise
-              pointue en ingénierie financière et intervenons sur des missions à forte valeur ajoutée. La gestion
-              des risques et la mise en œuvre des exigences réglementaires constituent notre cœur de métier
-              historique.
-            </p>
-            <p>
-              <Link href="/a-propos" className="link-arrow">
-                Découvrir le cabinet <ArrowRight />
-              </Link>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="section section--tint" aria-labelledby="expertises-title">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <p className="eyebrow">Nos expertises</p>
-              <h2 id="expertises-title" className="h2">
-                Au cœur des transformations du secteur financier
-              </h2>
-            </div>
-            <Link href="/expertises" className="link-arrow">
-              Toutes nos expertises <ArrowRight />
-            </Link>
-          </div>
-          <ul className="cards">
-            {expertises.map((expertise, index) => (
-              <li key={expertise.slug} className="card card--link">
-                <span className="card__index">0{index + 1}</span>
-                <h3 className="h3">{expertise.title}</h3>
-                <p>{expertise.short}</p>
-                <Link href={`/expertises/${expertise.slug}`} className="link-arrow">
-                  En savoir plus <ArrowRight />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="section" aria-labelledby="publications-title">
-        <div className="container">
-          <div className="section-head" style={{ marginBottom: 0 }}>
-            <div>
-              <p className="eyebrow">Nos dernières publications</p>
-              <h2 id="publications-title" className="h2">
-                Décryptages réglementaires et analyses
-              </h2>
-            </div>
-            <Link href="/publications" className="link-arrow">
-              Toutes nos publications <ArrowRight />
-            </Link>
-          </div>
-          <Carousel label="Dernières publications">
-            {publications.map((publication, index) => (
-              <li key={publication.slug}>
-                <PublicationCard publication={publication} index={index} />
-              </li>
-            ))}
-          </Carousel>
-        </div>
-      </section>
-
-      <section className="section section--dark" aria-labelledby="services-title">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <p className="eyebrow">Nos services</p>
-              <h2 id="services-title" className="h2">
-                Trois offres pour accompagner vos décisions
-              </h2>
-            </div>
-          </div>
-          <ul className="cards">
-            {services.map((service, index) => (
-              <li key={service.title} className="card">
-                <span className="card__icon">
-                  <ServiceIcon name={serviceIconNames[index]} />
-                </span>
-                <h3 className="h3">{service.title}</h3>
-                <p>{service.text}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <div className="feature">
-            <div className="feature__body">
-              <p className="eyebrow">Middle East Africa</p>
-              <h2 className="h2">Les mêmes standards, de Paris à la région MEA</h2>
-              <p className="lead">
-                Nous proposons aux institutions de la région Middle East Africa des compétences similaires à celles
-                de notre bureau parisien, fondées sur des méthodologies communes : gestion des risques, conformité
-                réglementaire, mise à niveau des modèles, études quantitatives et projets de transformation.
-              </p>
-              <Link href="/a-propos" className="link-arrow">
-                En savoir plus <ArrowRight />
+              <Link href="/expertises" className="btn btn--quiet">
+                {home.hero.secondary}
               </Link>
             </div>
-            <div className="feature__art">
-              <FeatureArt />
-            </div>
+          </div>
+          <div className="hero__visual">
+            <HeroRing segments={home.services} />
           </div>
         </div>
       </section>
 
-      <section className="section section--dark" aria-labelledby="careers-title">
-        <div className="container careers">
-          <div style={{ display: 'grid', gap: 'var(--space-5)', justifyItems: 'start' }}>
-            <p className="eyebrow">Nous rejoindre</p>
-            <h2 id="careers-title" className="h2">
-              Rejoignez Wise Associates
+      <section className="section" aria-labelledby="intro-title">
+        <div className="container intro">
+          <div className="intro__text">
+            <h2 id="intro-title" className="h2">
+              {home.intro.title}
             </h2>
-            <p className="lead">
-              Intégrez un environnement de travail dynamique, qui encourage le partage des compétences et le
-              travail en équipe.
-            </p>
+            {home.intro.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+            <Link href="/a-propos" className="btn btn--dark">
+              {home.intro.cta}
+            </Link>
+          </div>
+          <div className="intro__visual">
+            <IntroArt />
+          </div>
+        </div>
+      </section>
+
+      {/* Les trois offres s'empilent au défilement sur grand écran (voir .services-stack). */}
+      <div className="services-stack">
+        {home.services.map((service) => (
+          <section
+            key={service.key}
+            id={`offre-${service.key}`}
+            className={`service service--${service.key}`}
+            aria-labelledby={`service-${service.key}`}
+          >
+            <div className="container service__grid">
+              <ServiceEmblem name={service.key} label={service.label} />
+              <div className="service__text">
+                <h2 id={`service-${service.key}`}>{service.title}</h2>
+                {service.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+                <Link href={service.href} className="link-more">
+                  {home.readMore}
+                  <span className="visually-hidden"> : {service.label}</span>
+                </Link>
+              </div>
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <section className="section" aria-labelledby="news-title">
+        <div className="container bento">
+          <div className="tile tile--intro">
+            <h2 id="news-title">{home.news.title}</h2>
+            <p>{home.news.text}</p>
+          </div>
+          {[first, second].map((publication, index) => (
+            <article key={publication.slug} className="tile tile--post">
+              <div className="tile__cover">
+                <CoverArt variant={index} />
+              </div>
+              <PostMeta publication={publication} />
+              <h3>
+                <Link href={`/publications/${publication.slug}`} className="card-link">
+                  {publication.title}
+                </Link>
+              </h3>
+              <p className="tile__excerpt">{publication.excerpt}</p>
+            </article>
+          ))}
+          <div className="tile tile--plain">
+            <h3>{home.news.digestTitle}</h3>
+            <p>{home.news.digestText}</p>
+            <Link href="/publications" className="btn btn--dark">
+              {home.news.cta}
+            </Link>
+          </div>
+          <article className="tile tile--post tile--row bento__wide">
+            <div className="tile__body">
+              <PostMeta publication={third} />
+              <h3>
+                <Link href={`/publications/${third.slug}`} className="card-link">
+                  {third.title}
+                </Link>
+              </h3>
+              <p className="tile__excerpt">{third.excerpt}</p>
+            </div>
+            <div className="tile__cover">
+              <CoverArt variant={2} />
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="section careers" aria-labelledby="careers-title">
+        <div className="container careers__grid">
+          <div className="careers__text">
+            <h2 id="careers-title">{home.careers.title}</h2>
+            <p>{home.careers.text}</p>
             <div className="btn-row">
               <Link href="/recrutement" className="btn btn--primary">
-                Parcourir les offres <ArrowRight />
+                {home.careers.cta}
               </Link>
               <Link href="/recrutement#candidature" className="btn btn--ghost">
-                Candidature spontanée
+                {home.careers.secondary}
               </Link>
             </div>
           </div>
-          <ul className="careers__panel">
-            {jobOffers.slice(0, 4).map((offer) => (
-              <li key={offer}>{offer}</li>
-            ))}
-          </ul>
+          <div className="careers__panel">
+            <OrbitArt labels={home.careers.orbit} />
+          </div>
         </div>
       </section>
 
-      <section className="section section--tint" aria-labelledby="practices-title">
-        <div className="container" style={{ display: 'grid', gap: 'var(--space-6)', textAlign: 'center' }}>
-          <div style={{ display: 'grid', gap: 'var(--space-4)', justifyItems: 'center' }}>
-            <p className="eyebrow">Exclusivement les services financiers</p>
-            <h2 id="practices-title" className="h2">
-              Des pratiques dédiées à chaque métier
-            </h2>
-          </div>
-          <ul className="practices">
+      <section className="trust" aria-labelledby="trust-title">
+        <div className="container trust__head">
+          <h2 id="trust-title">{home.practices.title}</h2>
+          <p>{home.practices.text}</p>
+        </div>
+        <div className="marquee">
+          {/* La liste est dupliquée pour un défilement continu ; la copie est masquée aux lecteurs d'écran. */}
+          <ul className="marquee__track">
             {company.practices.map((practice) => (
               <li key={practice}>{practice}</li>
             ))}
+            {company.practices.map((practice) => (
+              <li key={`${practice}-copie`} aria-hidden="true">
+                {practice}
+              </li>
+            ))}
           </ul>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <div className="cta-band">
-            <h2 className="h2">Parlons de vos enjeux</h2>
-            <p className="lead">
-              Une question réglementaire, un projet de transformation ? Nos consultants vous répondent.
-            </p>
-            <Link href="/contact" className="btn btn--primary">
-              Nous contacter <ArrowRight />
-            </Link>
-          </div>
         </div>
       </section>
     </>

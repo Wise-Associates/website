@@ -1,25 +1,35 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import { HeroArt } from './Art'
+import { JsonLd } from '@/components/JsonLd'
+import { breadcrumbLd } from '@/lib/structured-data'
 
 type Crumb = { href: string; label: string }
 
 export function PageHero({
   eyebrow,
   title,
+  path,
   lead,
   crumbs = [],
   children,
 }: {
-  eyebrow: string
+  // Catégorie affichée au-dessus du titre, seulement quand elle apporte une information.
+  eyebrow?: string
   title: string
+  // Chemin de la page courante, pour le fil d'Ariane lu par les moteurs de recherche.
+  path: string
   lead?: string
   crumbs?: Crumb[]
   children?: ReactNode
 }) {
+  const trail = [
+    { name: 'Accueil', path: '/' },
+    ...crumbs.map((crumb) => ({ name: crumb.label, path: crumb.href })),
+    { name: title, path },
+  ]
   return (
     <section className="page-hero">
-      <HeroArt />
+      <JsonLd data={breadcrumbLd(trail)} />
       <div className="container">
         <nav aria-label="Fil d’Ariane">
           <ol className="breadcrumb">
@@ -34,7 +44,7 @@ export function PageHero({
             <li aria-current="page">{title}</li>
           </ol>
         </nav>
-        <p className="eyebrow">{eyebrow}</p>
+        {eyebrow && <p className="eyebrow">{eyebrow}</p>}
         <h1 className="display">{title}</h1>
         {lead && <p className="lead">{lead}</p>}
         {children}
