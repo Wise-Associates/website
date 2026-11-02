@@ -2,9 +2,7 @@ import type { CSSProperties } from 'react'
 
 // Illustrations vectorielles dessinées pour le site : aucune photo, vidéo ni image de tiers.
 
-// Fond du hero : halos qui dérivent lentement. Ce sont des calques HTML animés en CSS
-// (transform), donc pris en charge par le GPU ; animer des éléments à l'intérieur d'un SVG
-// forcerait le navigateur à tout repeindre à chaque image, ce qui ralentit le mobile.
+// Fond du hero : trois halos colorés, fixes (voir .orb dans globals.css).
 export function HeroBackdrop() {
   return (
     <div className="hero__bg" aria-hidden="true">

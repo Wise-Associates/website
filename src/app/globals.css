@@ -85,7 +85,7 @@
   --header-h: 68px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ring-turn: 60s; /* durée d'un tour complet de l'anneau du hero */
+  --ring-turn: 60s; /* durée d'un tour de l'anneau du hero (voir steps() sur .ring__turn) */
 }
 
 /* Contextes sombres : focus et soulignés passent au lichen. */
@@ -724,12 +724,11 @@ time {
   }
 }
 
-/* Halos qui dérivent : animations de transform sur des calques HTML, prises en charge par le GPU. */
+/* Halos fixes, peints une seule fois avec le fond du hero. Quand ils dérivaient, le
+   navigateur devait recomposer toute la largeur du hero à chaque image, en continu. */
 .orb {
   position: absolute;
   border-radius: 50%;
-  will-change: transform;
-  animation: drift 24s ease-in-out infinite alternate;
 }
 .orb--1 {
   top: -32%;
@@ -746,8 +745,6 @@ time {
   aspect-ratio: 1;
   background: radial-gradient(closest-side, var(--art-slate), transparent);
   opacity: 0.55;
-  animation-duration: 30s;
-  animation-direction: alternate-reverse;
 }
 .orb--3 {
   top: 40%;
@@ -756,15 +753,6 @@ time {
   aspect-ratio: 1;
   background: radial-gradient(closest-side, var(--art-amber), transparent);
   opacity: 0.35;
-  animation-duration: 36s;
-}
-@keyframes drift {
-  from {
-    transform: translate(-4%, -3%) scale(1);
-  }
-  to {
-    transform: translate(5%, 4%) scale(1.12);
-  }
 }
 
 /* L'anneau : les arcs se tracent au chargement, puis l'anneau tourne lentement autour du
@@ -786,8 +774,13 @@ time {
   height: 100%;
   overflow: visible;
 }
+/* Mouvements lents et continus : on les découpe en petits pas (steps) pour que le
+   navigateur ne redessine l'écran que 15 à 30 fois par seconde au lieu de 60. À cette
+   vitesse, chaque pas fait environ un pixel : l'œil n'y voit pas de saccade, et le
+   processeur travaille deux à trois fois moins. Ici 1 200 pas pour 60 s = 20 images/s ;
+   ajuster le nombre de pas si --ring-turn change. */
 .ring__turn {
-  animation: ring-turn var(--ring-turn) linear infinite;
+  animation: ring-turn var(--ring-turn) steps(1200) infinite;
   will-change: transform;
 }
 @keyframes ring-turn {
@@ -1236,12 +1229,14 @@ time {
   width: 100%;
   height: 100%;
 }
+/* 1 200 pas pour 80 s = 15 images/s (voir .ring__turn) ; le texte suit les mêmes pas pour
+   rester droit. */
 .orbit {
   transform-origin: 327px 320px;
-  animation: turn 80s linear infinite;
+  animation: turn 80s steps(1200) infinite;
 }
 .orbit text {
-  animation: turn 80s linear infinite reverse;
+  animation: turn 80s steps(1200) infinite reverse;
   transform-box: fill-box;
   transform-origin: center;
 }
@@ -1284,7 +1279,9 @@ time {
   display: flex;
   width: max-content;
   list-style: none;
-  animation: scroll 60s linear infinite;
+  /* 1 800 pas pour 60 s = 30 images/s : un défilement de texte supporte moins bien les
+     pas que les rotations (voir .ring__turn). */
+  animation: scroll 60s steps(1800) infinite;
 }
 .marquee__track li {
   display: flex;
