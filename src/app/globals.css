@@ -507,10 +507,29 @@ time {
 .nav__link[aria-expanded='true'] {
   color: var(--accent);
 }
-.nav__link[aria-current='page'] {
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-decoration-thickness: 2px;
+/* Page en cours (ordinateur) : un trait posé sur la bordure basse de l'en-tête, comme un
+   onglet, plutôt qu'un soulignement collé au texte. Les entrées de menu prennent toute la
+   hauteur de l'en-tête pour que le trait (positionné sur .nav__item) touche la bordure.
+   Un menu déroulant porte data-current quand l'une de ses pages est ouverte. */
+@media (min-width: 1001px) {
+  .nav,
+  .nav__list,
+  .nav__item {
+    align-self: stretch;
+  }
+  .nav__item {
+    display: flex;
+    align-items: center;
+  }
+  .nav__link[aria-current='page']::after,
+  .nav__link[data-current='true']::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -1px;
+    height: 2px;
+    border-radius: 2px 2px 0 0;
+    background: var(--accent);
+  }
 }
 .nav__link svg {
   transition: transform 0.2s var(--ease);
@@ -542,7 +561,7 @@ time {
 
 .dropdown {
   position: absolute;
-  top: calc(100% + 18px);
+  top: calc(100% + var(--space-2));
   left: -20px;
   min-width: 300px;
   display: grid;
@@ -624,7 +643,6 @@ time {
     border-bottom: 1px solid var(--line-dark);
   }
   .nav__link[aria-current='page'] {
-    text-decoration: none;
     color: var(--accent);
   }
   .dropdown {

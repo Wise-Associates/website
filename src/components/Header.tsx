@@ -110,6 +110,7 @@ export function Header() {
                   className="nav__link"
                   aria-expanded={openMenu === menu.id}
                   aria-controls={`menu-${menu.id}`}
+                  data-current={menu.links.some((link) => isCurrent(link.href)) || undefined}
                   onClick={() => setOpenMenu((current) => (current === menu.id ? null : menu.id))}
                 >
                   {menu.label}
