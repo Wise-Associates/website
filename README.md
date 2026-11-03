@@ -2,8 +2,9 @@
 
 Site vitrine de Wise Associates, cabinet de conseil en management (Paris), dédié aux services financiers.
 
-- Next.js 16 (App Router), entièrement statique : aucune base de données, aucun formulaire, aucun script tiers.
-- Contenu éditorial centralisé dans `src/content/site.ts` (accueil, expertises, services, offres d’emploi, coordonnées) et `src/content/publications.ts` (articles).
+- Next.js 16 (App Router). Le site public est entièrement statique : aucune base de données, aucun formulaire, aucun script tiers.
+- Contenu éditorial centralisé dans `src/content/site.ts` (accueil, expertises, services, offres d’emploi, coordonnées).
+- Publications (articles) dans `content/publications/*.json`, gérées depuis le backoffice `/admin` (voir plus bas).
 - Styles dans `src/app/globals.css` : toutes les couleurs, polices et espacements sont des variables CSS (`:root`).
 - Polices auto-hébergées via `@fontsource` (Space Grotesk pour les titres, Instrument Sans variable pour le texte et les libellés en chasse étroite) : pas d’appel à Google Fonts.
 - Logo officiel : `public/wise-logo.png` (noir, inversé en CSS sur fond sombre). Les illustrations sont des SVG maison dans `src/components/Art.tsx`, colorées par les variables `--art-*`.
@@ -18,8 +19,31 @@ npm run dev          # http://localhost:3000
 ## Vérifier avant de pousser
 
 ```bash
-npm run check        # typecheck + lint + build
+npm test             # tests unitaires (node:test, Node 22.18 ou plus)
+npm run check        # typecheck + lint + tests + build
 ```
+
+## Backoffice des publications
+
+`/admin` permet à l’équipe de créer, modifier, dépublier (statut brouillon) et supprimer les publications.
+
+- **Stockage** : chaque publication est un fichier `content/publications/<slug>.json` (format dans
+  `content/publications/README.md`). Le backoffice l’enregistre par un commit sur `CONTENT_BRANCH`
+  (`pre-dev` par défaut) via l’API GitHub ; Vercel reconstruit alors le site en une à deux minutes.
+  La mise en production suit le circuit habituel (pull request validée vers la branche de production).
+- **Accès** : un compte administrateur unique (`ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH`, `ADMIN_SESSION_SECRET`),
+  session de 8 heures dans un cookie signé, `httpOnly`, `SameSite=Strict`, limité à `/admin`.
+  Chaque page et action serveur vérifie la session elle-même (`src/lib/admin/auth.ts`).
+- **Concurrence** : une modification faite entre-temps (autre onglet, autre personne) est détectée et refusée.
+
+Mise en place sur Vercel (Settings > Environment Variables, environnements Preview et Production) :
+
+1. `node scripts/hash-password.mjs`, puis copier la ligne `ADMIN_PASSWORD_HASH=…` dans Vercel.
+2. Renseigner `ADMIN_EMAIL` et `ADMIN_SESSION_SECRET` (commande de génération dans `.env.example`).
+3. Créer sur GitHub un jeton « fine-grained » limité au dépôt `wise-associates/website`, permission
+   Contents en lecture et écriture, et le renseigner dans `GITHUB_CONTENT_TOKEN`.
+
+En local, sans `GITHUB_CONTENT_TOKEN`, `npm run dev` écrit directement dans `content/publications`.
 
 ## Arborescence
 
@@ -28,7 +52,11 @@ npm run check        # typecheck + lint + build
 | `src/app/` | Pages (accueil, expertises, publications, recrutement, à propos, contact, mentions légales) |
 | `src/components/` | En-tête et menus, pied de page, cartes, illustrations SVG, données structurées (`JsonLd`) |
 | `src/content/site.ts` | Tous les textes du site, y compris titres et descriptions pour les moteurs (`seo`) |
-| `src/content/publications.ts` | Articles et leur ancienne adresse WordPress |
+| `content/publications/*.json` | Articles (un fichier par article) et leur ancienne adresse WordPress |
+| `src/content/publications.ts` | Lecture des articles publiés au moment du build |
+| `src/content/admin.ts` | Textes du backoffice |
+| `src/app/admin/`, `src/lib/admin/`, `src/components/admin/` | Backoffice : pages, actions serveur, authentification, stockage GitHub |
+| `src/lib/publications/model.ts` | Format, validation et rendu des articles (fonctions pures testées) |
 | `src/content/legacy-urls.ts` | Autres anciennes adresses WordPress redirigées (offres d’emploi, catégories) |
 | `src/lib/seo.ts`, `src/lib/structured-data.ts`, `src/lib/og.tsx` | Référencement : métadonnées de page, schema.org, images de partage |
 | `next.config.ts` | En-têtes de sécurité (CSP) et redirections des anciennes URL WordPress |

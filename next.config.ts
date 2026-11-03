@@ -2,8 +2,9 @@ import type { NextConfig } from 'next'
 import { legacyJobPaths, legacyRedirects } from './src/content/legacy-urls'
 import { publications } from './src/content/publications'
 
-// Le site est entièrement statique : pas de script tiers, pas d'iframe, pas de formulaire.
+// Le site public est entièrement statique : pas de script tiers, pas d'iframe, pas de formulaire.
 // La CSP est donc stricte ; l'élargir seulement si un service externe est ajouté.
+// Le backoffice (/admin) n'appelle GitHub que côté serveur : la CSP du navigateur n'a pas à l'autoriser.
 const securityHeaders = [
   {
     key: 'Content-Security-Policy',
@@ -29,7 +30,17 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
-    return [{ source: '/:path*', headers: securityHeaders }]
+    return [
+      { source: '/:path*', headers: securityHeaders },
+      // Le backoffice ne doit jamais apparaître dans les moteurs de recherche ni être mis en cache.
+      {
+        source: '/admin/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+          { key: 'Cache-Control', value: 'no-store' },
+        ],
+      },
+    ]
   },
   // Anciennes URL du site WordPress, conservées pour les liens entrants et le référencement.
   async redirects() {
@@ -44,11 +55,11 @@ const nextConfig: NextConfig = {
       { source: '/offres-demploie', destination: '/recrutement', permanent: true },
       { source: '/candidature-spontanee', destination: '/recrutement#candidature', permanent: true },
       { source: '/politique-de-confidentialite', destination: '/mentions-legales#confidentialite', permanent: true },
-      ...publications.map((publication) => ({
-        source: publication.legacyPath,
-        destination: `/publications/${publication.slug}`,
-        permanent: true,
-      })),
+      ...publications.flatMap((publication) =>
+        publication.legacyPath
+          ? [{ source: publication.legacyPath, destination: `/publications/${publication.slug}`, permanent: true }]
+          : [],
+      ),
       ...legacyJobPaths.map((source) => ({ source, destination: '/recrutement', permanent: true })),
       ...legacyRedirects.map((redirect) => ({ ...redirect, permanent: true })),
       // Une seule adresse canonique : www.wise-associates.fr renvoie vers wise-associates.fr.

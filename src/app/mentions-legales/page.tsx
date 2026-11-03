@@ -64,6 +64,10 @@ export default function LegalPage() {
               conservées que le temps nécessaire à ce traitement.
             </p>
             <p>
+              L’espace d’administration réservé à notre équipe dépose un cookie de session strictement nécessaire à
+              son fonctionnement. Il ne concerne pas les visiteurs du site.
+            </p>
+            <p>
               Conformément au RGPD, vous disposez d’un droit d’accès, de rectification, d’effacement,
               d’opposition et de limitation du traitement de vos données. Pour l’exercer, écrivez à{' '}
               <a href={`mailto:${company.email}`}>{company.email}</a>. Vous pouvez également introduire une

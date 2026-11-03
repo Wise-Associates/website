@@ -1,0 +1,14 @@
+{
+  "slug": "enjeux-nouvelles-technologies-finance",
+  "status": "published",
+  "title": "Les enjeux des nouvelles technologies en finance",
+  "date": "2021-09-25",
+  "category": "Innovation",
+  "excerpt": "Notre sélection : les Cahiers Louis Bachelier consacrés à l’intelligence artificielle en finance, de la gestion des risques aux robots-conseillers et aux biais des algorithmes.",
+  "body": "Portée par les progrès de l’apprentissage profond et par des données plus exploitables, l’intelligence artificielle se diffuse rapidement dans la finance, chez les grands groupes comme chez les fintechs. L’enjeu est une intelligence augmentée, au service des équipes.\n\n## Un sujet suivi de longue date par l’ILB\n\nL’Institut Louis Bachelier travaille sur ces questions depuis 2014 : conférences Meet the Data avec l’Université de Berkeley, création de l’ILB DataLab en 2015, puis lancement du programme Finance and Insurance Reloaded (FaIR) et de la Chaire Finance Digitale.\n\n## Au sommaire de ce numéro\n\n- Charles-Albert Lehalle, directeur scientifique du programme FaIR.\n- Driss Lamrani, sur l’apport de l’IA à la gestion des risques financiers.\n- Marie Brière, sur l’essor des robots-conseillers pour les particuliers.\n- David Bounie et Winston Maxwell, sur les biais et la transparence des algorithmes.\n\nPourquoi cette lecture nous intéresse : la transparence et l’explicabilité des modèles sont des conditions de leur acceptation par les métiers comme par les régulateurs, un point central dans nos missions Data et Digital.",
+  "source": {
+    "label": "Les Cahiers Louis Bachelier",
+    "url": "https://www.institutlouisbachelier.org/"
+  },
+  "legacyPath": "/les-enjeux-des-nouvelles-technologies-en-finance"
+}

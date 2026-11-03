@@ -1,0 +1,236 @@
+/* Styles du backoffice. Uniquement les variables de :root (globals.css), comme le reste du site. */
+
+.shell {
+  padding-block: var(--space-7) var(--space-9);
+  background: var(--mist);
+  min-height: 70vh;
+}
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.barTitle {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--step-1);
+}
+
+.barNav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.barNav a,
+.linkButton {
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+.linkButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.panel {
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+}
+
+.narrow {
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: var(--space-3) var(--space-2);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  color: var(--text-muted);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+
+.table a {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.draft {
+  background: color-mix(in srgb, var(--art-amber-light) 45%, transparent);
+  color: var(--art-amber);
+}
+
+/* Sur mobile, chaque ligne du tableau devient une carte. */
+@media (max-width: 640px) {
+  .table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .table tr {
+    display: grid;
+    gap: var(--space-1);
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+  .table td {
+    padding: 0;
+    border: 0;
+  }
+}
+
+.form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.grid2 {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.field label,
+.field legend {
+  font-weight: 600;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--text);
+  font: inherit;
+}
+
+.field textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.field textarea.long {
+  min-height: 24rem;
+  font-size: var(--step--1);
+  line-height: 1.6;
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible,
+.field select:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
+}
+
+.field [aria-invalid='true'] {
+  border-color: var(--art-amber);
+}
+
+.help {
+  color: var(--text-soft);
+  font-size: var(--step--1);
+}
+
+.error {
+  color: var(--art-amber);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+
+.alert,
+.notice {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+.alert {
+  border: 1px solid var(--art-amber);
+  background: color-mix(in srgb, var(--art-amber-light) 30%, transparent);
+  color: var(--text);
+}
+
+.notice {
+  border: 1px solid var(--brand);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.danger {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.preview {
+  margin-top: var(--space-6);
+}
+
+.panel > h1 {
+  margin-bottom: var(--space-5);
+}
