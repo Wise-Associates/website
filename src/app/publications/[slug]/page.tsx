@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { ArticleBody } from '@/components/ArticleBody'
 import { PageHero } from '@/components/PageHero'
 import { publications } from '@/content/publications'
 import { formatDate } from '@/content/format'
@@ -54,17 +55,7 @@ export default async function PublicationPage({ params }: Props) {
         <div className="container">
           <article className="article">
             <p className="article__lead">{publication.excerpt}</p>
-            {publication.body.map((block, index) => {
-              if (block.kind === 'heading') return <h2 key={index}>{block.text}</h2>
-              if (block.kind === 'paragraph') return <p key={index}>{block.text}</p>
-              return (
-                <ul key={index}>
-                  {block.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              )
-            })}
+            <ArticleBody blocks={publication.body} />
             {publication.source && (
               <p className="article__source">
                 Source :{' '}
