@@ -1402,6 +1402,11 @@ time {
 .cards--list {
   grid-template-columns: 1fr;
 }
+/* Peu d'éléments (publications liées à un secteur) : les colonnes vides sont conservées pour
+   qu'une carte seule garde la largeur d'une colonne au lieu d'occuper toute la ligne. */
+.cards--fill {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+}
 .card {
   position: relative;
   display: flex;

@@ -159,6 +159,227 @@ export const expertises: Expertise[] = [
   },
 ]
 
+// Secteurs d'intervention. Textes originaux rédigés pour Wise Associates : ils ne reprennent
+// aucun texte d'un autre cabinet. Chaque secteur renvoie vers les expertises métier mobilisées
+// et, le cas échéant, vers des publications (par leur slug).
+export type SectorPart = {
+  // Intitulé du volet, seulement quand une page couvre plusieurs univers (assurance et protection sociale).
+  title?: string
+  issues: string[]
+  offers: Domain[]
+}
+
+export type Sector = {
+  slug: string
+  title: string
+  // Titre pour les moteurs de recherche : 42 caractères au plus, le suffixe « | Wise Associates » est ajouté.
+  seoTitle: string
+  short: string
+  intro: string
+  parts: SectorPart[]
+  expertises: string[]
+  publications: string[]
+}
+
+export const sectors: Sector[] = [
+  {
+    slug: 'banque',
+    title: 'Banque',
+    seoTitle: 'Conseil aux banques : risques, conformité',
+    short:
+      'Réglementation, risques, finance, conformité et transformation : nous accompagnons les banques de détail, privées, de financement et d’investissement.',
+    intro:
+      'La banque est notre cœur de métier historique. Les établissements doivent absorber un flux continu d’exigences prudentielles, défendre leur rentabilité face à de nouveaux acteurs et moderniser des systèmes d’information construits par couches successives. Nos consultants connaissent à la fois les métiers, les textes et les outils qui les mettent en œuvre.',
+    parts: [
+      {
+        issues: [
+          'Mettre en œuvre la finalisation de Bâle III (CRR3), FRTB ou IRRBB dans les délais, en maîtrisant le coût des programmes.',
+          'Fiabiliser les données de risque et de finance, ainsi que la chaîne de production des reportings réglementaires.',
+          'Améliorer le coefficient d’exploitation en simplifiant les modèles opératoires et en automatisant les traitements.',
+          'Renforcer la connaissance client et la lutte contre le blanchiment sans dégrader l’expérience des clients.',
+          'Intégrer l’intelligence artificielle et les nouvelles technologies dans un cadre de risques maîtrisé.',
+        ],
+        offers: [
+          {
+            title: 'Réglementation prudentielle',
+            text: 'Analyses d’impact et programmes de mise en conformité : CRR2 et CRR3, SA-CCR, FRTB, ratios de liquidité NSFR et LCR, IRRBB, IFRS 9.',
+          },
+          {
+            title: 'Risques et ALM',
+            text: 'Risque de crédit, de contrepartie et de liquidité, gestion actif-passif, revue des modèles internes, stress tests et dispositifs d’alerte précoce.',
+          },
+          {
+            title: 'Finance et pilotage',
+            text: 'Pilotage de la rentabilité, production des reportings financiers et réglementaires, qualité des données de risque selon les principes BCBS 239.',
+          },
+          {
+            title: 'Conformité',
+            text: 'Connaissance client, LCB-FT, sanctions et embargos, protection de la clientèle (MIF 2), échanges automatiques d’informations fiscales (FATCA, CRS).',
+          },
+          {
+            title: 'Opérations et systèmes d’information',
+            text: 'Évolution des modèles opératoires, revue des processus, automatisation, refonte des outils de reporting et assistance à maîtrise d’ouvrage.',
+          },
+          {
+            title: 'Données et innovation',
+            text: 'Gouvernance des données, data visualisation, analyse prédictive et cas d’usage d’intelligence artificielle, du prototype à l’industrialisation.',
+          },
+        ],
+      },
+    ],
+    expertises: ['risks-finance', 'compliance', 'data-management'],
+    publications: ['crr2-risque-de-contrepartie-sa-ccr', 'risque-de-liquidite-nsfr-2021', 'enjeux-nouvelles-technologies-finance'],
+  },
+  {
+    slug: 'assurance-protection-sociale',
+    title: 'Assurance et protection sociale',
+    seoTitle: 'Conseil en assurance et protection sociale',
+    short:
+      'Assureurs, mutuelles, institutions de prévoyance et organismes de retraite : concilier exigences réglementaires, maîtrise des coûts et qualité de service.',
+    intro:
+      'Assureurs, mutuelles et institutions de prévoyance évoluent dans un cadre prudentiel exigeant, sur des marchés où les attentes des assurés et la pression sur les coûts augmentent. Les organismes de protection sociale doivent, eux, garantir des droits exacts à leurs bénéficiaires tout en modernisant leur gestion. Les deux univers partagent des enjeux de données, de systèmes d’information et de pilotage des risques.',
+    parts: [
+      {
+        title: 'Assurance',
+        issues: [
+          'Produire des calculs et des reportings Solvabilité II fiables, et intégrer IFRS 17 dans la chaîne de production financière.',
+          'Respecter les règles de distribution et de protection de la clientèle (DDA) sur tous les canaux de vente.',
+          'Améliorer la rentabilité technique et l’efficacité de la gestion des contrats et des sinistres.',
+          'Intégrer les risques climatiques et les critères de durabilité dans la souscription et la politique de placement.',
+          'Proposer des parcours numériques simples, de la souscription jusqu’à l’indemnisation.',
+        ],
+        offers: [
+          {
+            title: 'Réglementation et finance',
+            text: 'Solvabilité II (trois piliers), ORSA, IFRS 17, DDA : analyses d’impact, fiabilisation des données et des chaînes de reporting.',
+          },
+          {
+            title: 'Risques et placements',
+            text: 'Gestion actif-passif, risques de crédit et de liquidité des portefeuilles, prise en compte des risques climatiques.',
+          },
+          {
+            title: 'Contrats et sinistres',
+            text: 'Revue des processus de gestion, automatisation des tâches répétitives, pilotage de la qualité de service et des délais.',
+          },
+          {
+            title: 'Systèmes et données',
+            text: 'Cadrage et pilotage de refontes de systèmes de gestion, gouvernance et qualité des données, tableaux de bord de pilotage.',
+          },
+        ],
+      },
+      {
+        title: 'Protection sociale',
+        issues: [
+          'Garantir le calcul exact des droits et des prestations, en santé, en prévoyance comme en retraite.',
+          'Intégrer les réformes réglementaires et paramétriques dans les systèmes de gestion, dans des délais contraints.',
+          'Maîtriser les frais de gestion tout en améliorant le service rendu aux bénéficiaires.',
+          'Protéger les données de santé et les données personnelles, sensibles par nature.',
+        ],
+        offers: [
+          {
+            title: 'Mise en œuvre des réformes',
+            text: 'Analyse d’impact des évolutions réglementaires, adaptation des règles de gestion, recette et accompagnement des équipes.',
+          },
+          {
+            title: 'Pilotage et performance',
+            text: 'Indicateurs de qualité de service et de coûts de gestion, revue des processus, automatisation des traitements.',
+          },
+          {
+            title: 'Données et conformité',
+            text: 'Gouvernance et qualité des données, mise en conformité RGPD, sécurisation des échanges de données sensibles.',
+          },
+        ],
+      },
+    ],
+    expertises: ['risks-finance', 'compliance', 'data-management'],
+    publications: ['recherche-economique-changement-climatique'],
+  },
+  {
+    slug: 'secteur-public',
+    title: 'Secteur public',
+    seoTitle: 'Conseil en management du secteur public',
+    short:
+      'Administrations, collectivités et établissements publics : pilotage financier, maîtrise des risques, données et processus au service des usagers.',
+    intro:
+      'Les acteurs publics doivent rendre un service de meilleure qualité avec des ressources contraintes, tout en rendant compte de l’usage des fonds publics. Leurs projets de transformation mêlent enjeux budgétaires, sécurité des données et attentes croissantes des usagers. Nous leur apportons les méthodes de pilotage financier, de gestion des risques et de data management éprouvées dans le secteur financier.',
+    parts: [
+      {
+        issues: [
+          'Simplifier les démarches et offrir des parcours numériques accessibles, sans laisser de côté les usagers qui en sont éloignés.',
+          'Fiabiliser le pilotage budgétaire et la qualité de l’information financière, de la prévision à l’exécution.',
+          'Maîtriser les risques et organiser le contrôle interne dans des organisations aux responsabilités partagées.',
+          'Valoriser les données publiques tout en garantissant leur protection et le respect du RGPD.',
+          'Moderniser des systèmes d’information anciens sans interrompre la continuité du service public.',
+        ],
+        offers: [
+          {
+            title: 'Pilotage financier et performance',
+            text: 'Tableaux de bord budgétaires, fiabilisation des données comptables, analyse des coûts et suivi de la performance des politiques publiques.',
+          },
+          {
+            title: 'Risques et contrôle interne',
+            text: 'Cartographie des risques, conception des dispositifs de contrôle interne, préparation des audits et suivi des plans d’action.',
+          },
+          {
+            title: 'Données et RGPD',
+            text: 'Gouvernance des données, qualité et référentiels, mise en conformité RGPD et cadrage de projets d’exploitation des données.',
+          },
+          {
+            title: 'Processus et dématérialisation',
+            text: 'Revue et simplification des processus, dématérialisation des démarches, automatisation des tâches répétitives.',
+          },
+          {
+            title: 'Pilotage de programmes',
+            text: 'Assistance à maîtrise d’ouvrage, pilotage de refontes de systèmes d’information, coordination entre directions métier et DSI, conduite du changement.',
+          },
+        ],
+      },
+    ],
+    expertises: ['data-management', 'digital-transformation', 'risks-finance'],
+    publications: [],
+  },
+]
+
+// Textes communs aux pages « Nos expertises » et aux pages secteur.
+export const expertisesPage = {
+  title: 'Nos expertises',
+  lead: 'Nos consultants interviennent au cœur des transformations de leurs clients, du cadrage réglementaire jusqu’au déploiement d’outils innovants.',
+  domainsTitle: 'Nos métiers',
+  domainsLead: 'Quatre expertises transverses, mobilisées dans chacun de nos secteurs.',
+  sectorsTitle: 'Nos secteurs',
+  sectorsLead: 'Des équipes qui connaissent les contraintes, le vocabulaire et les systèmes propres à chaque secteur.',
+  servicesTitle: 'Trois offres complémentaires',
+}
+
+export const sectorPage = {
+  issuesTitle: 'Ce qui se joue pour vous',
+  offersTitle: 'Nos interventions',
+  offersLead: 'Liste non exhaustive : chaque mission part de votre contexte et de vos priorités.',
+  approachTitle: 'Notre façon de travailler',
+  stepLabel: 'Étape',
+  approach: [
+    {
+      title: 'Cadrer',
+      text: 'Comprendre vos enjeux, votre cadre réglementaire et vos systèmes existants, puis fixer avec vous des objectifs mesurables.',
+    },
+    {
+      title: 'Concevoir et piloter',
+      text: 'Bâtir la feuille de route, piloter le programme et faire travailler ensemble directions métier, risques, finance et DSI.',
+    },
+    {
+      title: 'Déployer et transmettre',
+      text: 'Accompagner la mise en production et le changement, puis transférer les compétences pour que vos équipes restent autonomes.',
+    },
+  ],
+  expertisesTitle: 'Les expertises mobilisées',
+  publicationsTitle: 'Pour aller plus loin',
+  cta: {
+    title: 'Un projet dans ce secteur ?',
+    text: 'Décrivez-nous votre contexte par e-mail ou par téléphone : nous revenons vers vous pour en parler.',
+    button: 'Nous contacter',
+  },
+}
+
 export const services = [
   {
     title: 'Risque & Réglementaire',
@@ -279,7 +500,7 @@ export const seo = {
   expertises: {
     title: 'Nos expertises en conseil financier',
     description:
-      'Risks & Finance, Compliance, Data Management et Digital Transformation : comment Wise Associates accompagne les banques et les institutions financières.',
+      'Quatre métiers (risques et finance, conformité, data, digital) et trois secteurs : banque, assurance et protection sociale, secteur public.',
   },
   expertiseSuffix: 'pour la banque et l’assurance',
   publications: {
@@ -313,6 +534,8 @@ export const seo = {
     homeAlt: 'Wise Associates, cabinet de conseil en management dédié aux services financiers',
     expertiseEyebrow: 'Expertise',
     expertiseAlt: 'Une expertise de Wise Associates',
+    sectorEyebrow: 'Secteur',
+    sectorAlt: 'Un secteur d’intervention de Wise Associates',
     articleAlt: 'Une publication de Wise Associates',
   },
 } as const

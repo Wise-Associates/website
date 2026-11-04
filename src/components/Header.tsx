@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { expertises } from '@/content/site'
+import { expertises, sectors } from '@/content/site'
 import { Caret, Mail, Menu } from './Icons'
 import { Logo } from './Logo'
 
@@ -16,6 +16,7 @@ const menus: NavMenu[] = [
     links: [
       { href: '/expertises', label: 'Toutes nos expertises' },
       ...expertises.map((expertise) => ({ href: `/expertises/${expertise.slug}`, label: expertise.title })),
+      ...sectors.map((sector) => ({ href: `/expertises/secteurs/${sector.slug}`, label: sector.title })),
     ],
   },
   {

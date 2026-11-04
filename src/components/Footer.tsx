@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { company, expertises, home } from '@/content/site'
+import { company, expertises, home, sectors } from '@/content/site'
 import { Mail, Pin } from './Icons'
 
 export function Footer() {
@@ -22,6 +22,11 @@ export function Footer() {
                 {expertises.map((expertise) => (
                   <li key={expertise.slug}>
                     <Link href={`/expertises/${expertise.slug}`}>{expertise.title}</Link>
+                  </li>
+                ))}
+                {sectors.map((sector) => (
+                  <li key={sector.slug}>
+                    <Link href={`/expertises/secteurs/${sector.slug}`}>{sector.title}</Link>
                   </li>
                 ))}
               </ul>

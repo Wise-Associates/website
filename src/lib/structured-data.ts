@@ -1,5 +1,5 @@
 import type { Publication } from '@/content/publications'
-import { company, expertises, seo } from '@/content/site'
+import { company, expertises, sectors, seo } from '@/content/site'
 import { absoluteUrl, siteName, siteUrl } from '@/lib/seo'
 
 // Identifiants stables : les autres blocs (site, articles) renvoient vers l'organisation.
@@ -26,7 +26,11 @@ export function organizationLd() {
       addressCountry: company.address.countryCode,
     },
     areaServed: ['France', 'Middle East', 'Africa'],
-    knowsAbout: [...expertises.map((expertise) => expertise.title), ...company.practices],
+    knowsAbout: [
+      ...expertises.map((expertise) => expertise.title),
+      ...sectors.map((sector) => sector.title),
+      ...company.practices,
+    ],
   }
 }
 
