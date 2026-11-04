@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { publications } from '@/content/publications'
-import { expertises } from '@/content/site'
+import { expertises, sectors } from '@/content/site'
 import { absoluteUrl } from '@/lib/seo'
 
 // Pages indexables uniquement : les mentions légales (noindex) n'y figurent pas.
@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/',
     '/expertises',
     ...expertises.map((expertise) => `/expertises/${expertise.slug}`),
+    ...sectors.map((sector) => `/expertises/secteurs/${sector.slug}`),
     '/publications',
     '/recrutement',
     '/a-propos',
